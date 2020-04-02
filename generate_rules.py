@@ -50,7 +50,7 @@ def main():
 
 
     #    # evaluate model on train/test split
-    objects = serialization.read_all("../out.model")
+    objects = serialization.read_all("out.model")
     classifier2 = Classifier(jobject=objects[0])
     evaluation = Evaluation(test_data)
     evl = evaluation.test_model(classifier2, test_data)
