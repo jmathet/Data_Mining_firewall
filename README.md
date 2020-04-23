@@ -1,4 +1,7 @@
+# TODO
 
+- [ ] Créer fonction (tools) pour lire logs (important data) dans fichiers json
+- [ ] Choix structure de données adaptées aux logs / règles de FW
 
 # Description projet
 **Projet** : Optimisation algo machine learning pour configurer automatiquement des pare-feux
@@ -12,7 +15,8 @@ Schéma process *Data Mining* :
 ![alt text](step_by_steps.png)
 
 # Organisation du repository
-- 
+### Dossier ```machine_learning```
+### Dossier ```data_mining```
 
 # Prérequis
 (Windows)
