@@ -1,7 +1,9 @@
 # TODO
 
+- [x] Documentation
+- [ ] Trouver librairie pour construction arbre de décision
 - [ ] Créer fonction (tools) pour lire logs (important data) dans fichiers json
-- [ ] Choix structure de données adaptées aux logs / règles de FW
+- [ ] Choisir structure de données adaptées aux logs / règles de FW
 
 # Description projet
 **Projet** : Optimisation algo machine learning pour configurer automatiquement des pare-feux
