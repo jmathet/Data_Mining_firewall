@@ -1,10 +1,14 @@
 # TODO
 
 - [x] Documentation
-- [ ] Trouver librairie pour construction arbre de décision
 - [ ] Créer fonction (tools) pour lire logs (important data) dans fichiers json
 - [ ] Choisir structure de données adaptées aux logs / règles de FW
-
+- [ ] Ecrire algo génération "premitive rules"
+- [ ] Trouver librairie pour construction arbre de décision
+- [ ] Ecrire algo génération arbre de décision
+- [ ] Ecrire algo détection des chemins identiques
+- [ ] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
+- [ ] Ecrire algo d'ordonnancement des règles
 # Description projet
 **Projet** : Optimisation algo machine learning pour configurer automatiquement des pare-feux
 
