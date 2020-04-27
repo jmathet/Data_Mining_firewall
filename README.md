@@ -7,7 +7,7 @@
 - [ ] Trouver librairie pour construction arbre de décision
 - [ ] Ecrire algo génération arbre de décision
 - [ ] Ecrire algo détection des chemins identiques
-- [ ] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
+- [x] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
 - [ ] Ecrire algo d'ordonnancement des règles
 # Description projet
 **Projet** : Optimisation algo machine learning pour configurer automatiquement des pare-feux
