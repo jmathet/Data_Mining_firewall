@@ -2,13 +2,20 @@
 
 - [x] Documentation
 - [ ] Créer fonction (tools) pour lire logs (important data) dans fichiers json
-- [ ] Choisir structure de données adaptées aux logs / règles de FW
+- [x] Choisir structure de données adaptées aux logs / règles de FW
 - [ ] Ecrire algo génération "premitive rules"
+- [ ] Ecrire algo "main" FRG
+    - [ ] Ecrire algo détection des chemins identiques
+    - [x] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
+    - [ ] Ecrire algo d'ordonnancement des règles
+
+Si solution avec arbre :
 - [ ] Trouver librairie pour construction arbre de décision
 - [ ] Ecrire algo génération arbre de décision
-- [ ] Ecrire algo détection des chemins identiques
-- [x] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
-- [ ] Ecrire algo d'ordonnancement des règles
+
+Bonus :
+- [ ] Ecrire script installation prérequis auto
+
 # Description projet
 **Projet** : Optimisation algo machine learning pour configurer automatiquement des pare-feux
 
@@ -18,7 +25,7 @@ Projet en 2 étapes :
 
 Schéma process *Data Mining* : 
 
-![alt text](step_by_steps.png)
+![alt text](step_by_steps_2.png)
 
 # Organisation du repository
 ### Dossier ```machine_learning```
