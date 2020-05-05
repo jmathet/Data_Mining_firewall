@@ -1,8 +1,9 @@
+#!/usr/bin/python
 # INPUT : File with primitive rules (= list og unique logs)
 # OUTPUT : Genetic rules
 
 import numpy
-from clustering_algo_gap_analysis.py import CAGA
+from clustering_algo_gap_analysis import CAGA
 
 def get_cluster(element, clusters):
     for cluster in clusters:

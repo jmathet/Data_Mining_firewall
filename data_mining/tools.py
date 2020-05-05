@@ -1,4 +1,4 @@
-class rule:
+#!/usr/bin/python
 
 
 
