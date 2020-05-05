@@ -26,6 +26,6 @@ def filtering_rule_generation(premitives_rules):
 
     return premitives_rules
 
-def if __name__ == "__main__":
+if __name__ == "__main__":
     rules = numpy.zeros((5, 5))
-    rules[]
+    print(rules[1][3])
