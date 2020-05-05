@@ -18,11 +18,12 @@ def CAGA(list):
     # STEP 2: to compute the delta between 2 following items of the list
     delta.append(0)
     for i in range(1, len(list)):
-        delta_i = list[i]-list[i-1]
+        delta_i = int(list[i]) - int(list[i-1])
         delta.append(delta_i)
 
     print("delta list   : " + str(delta))
-    threshold = 0.2 * max(delta)
+    # threshold = 0.2 * max(delta)
+    threshold = 256
     print("threshold = " + str(threshold))
 
     # STEP 3 : to create clusters based on delta

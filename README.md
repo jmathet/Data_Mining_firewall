@@ -1,13 +1,20 @@
 # TODO
 
 - [x] Documentation
-- [ ] Créer fonction (tools) pour lire logs (important data) dans fichiers json
+- [x] Créer fonction (tools) pour lire logs (important data) dans fichiers csv
 - [x] Choisir structure de données adaptées aux logs / règles de FW
-- [ ] Ecrire algo génération "premitive rules"
+- [x] Ecrire algo génération "premitive rules" --> rèles identiques
+- [x] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
 - [ ] Ecrire algo "main" FRG
-    - [ ] Ecrire algo détection des chemins identiques
-    - [x] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
-    - [ ] Ecrire algo d'ordonnancement des règles
+    - [x] STEP 1: Regroupement @IP SRC qui ont même @IP DST et PORT
+	- [ ] STEP 2: Regroupement @IP DST qui ont même @IP SRC et PORT
+	- [ ] STEP 3: Regroupement  PORT   qui ont même @IP SRC et @IP DST
+    - [x] STEP 4: Suppresion des redondances (adapter algo génération "premitive rules")
+    - [ ] STEP 5: Cluster généralisation
+
+- [ ] Ecrire algo d'ordonnancement des règles
+- [ ] Créer fichier avec les variables
+- [ ] Lire CSV file en argument du main.py
 
 Si solution avec arbre :
 - [ ] Trouver librairie pour construction arbre de décision
