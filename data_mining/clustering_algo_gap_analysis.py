@@ -21,9 +21,9 @@ def CAGA(list):
         delta_i = list[i]-list[i-1]
         delta.append(delta_i)
 
-    print("delta list  :  " + str(delta))
+    print("delta list   : " + str(delta))
     threshold = 0.2 * max(delta)
-    print(threshold)
+    print("threshold = " + str(threshold))
 
     # STEP 3 : to create clusters based on delta
     subcluster = []
@@ -40,18 +40,26 @@ def CAGA(list):
 
 
 if __name__ == "__main__":
-    # my_list = [1,3,4,9,6,4,89,43]
+    print("----------------- PORT CLUSTERING --------------------------")
+    my_list_port = [1,3,4,9,6,4,89,43]
+    res = CAGA(my_list_port)
+    for x in range(len(res)):
+        print("CLUSTER " + str(x))
+        for y in range(len(res[x])):
+            print("   " + str(res[x][y]))
+
+
+    print("----------------- IP CLUSTERING --------------------------")
     addr1 = ipaddress.ip_address('192.0.2.1')
     addr2 = ipaddress.ip_address('192.0.2.5')
     addr3 = ipaddress.ip_address('192.0.4.1')
     addr4 = ipaddress.ip_address('192.0.5.1')
     
-    my_list = [int(addr1), int(addr2), int(addr3), int(addr4)]
+    my_list_ip = [int(addr1), int(addr2), int(addr3), int(addr4)]
     
-    res = CAGA(my_list)
+    res = CAGA(my_list_ip)
 
     print("brut : " + str(res))
-    print("net  : " + str(res))
 
     for x in range(len(res)):
         print("CLUSTER " + str(x))
