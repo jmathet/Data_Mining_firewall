@@ -25,7 +25,7 @@ def read_in_csv_file(path):
 
     return matrix
 
-def get_cluster_if_membership(clusters, member):
+def get_cluster_of_membership(clusters, member):
     for cluster in clusters:
         for element in cluster:
             if member==element:

@@ -1,12 +1,12 @@
 #!/usr/bin/python
 # PURPOSE : Create clusters from inputs (Clustering Algo bu Gap Analysis = CAGA)
-# INPUT : List of IP addresses or port numbers
+# INPUT : List of IP addresses or port numbers and threshold (-1 if default)
 # OUTPUT : List of clusters generated
 
 import ipaddress
 import numpy as np
 
-def CAGA(list):
+def CAGA(list, threshold):
     delta = []
     clusters = []
     
@@ -22,8 +22,11 @@ def CAGA(list):
         delta.append(delta_i)
 
     print("delta list   : " + str(delta))
-    # threshold = 0.2 * max(delta)
-    threshold = 256
+
+    if threshold==-1: # If argument is not gave
+        """threshold = 0.2 * max(delta)"""
+        threshold = 256
+    
     print("threshold = " + str(threshold))
 
     # STEP 3 : to create clusters based on delta
@@ -43,7 +46,7 @@ def CAGA(list):
 if __name__ == "__main__":
     print("----------------- PORT CLUSTERING --------------------------")
     my_list_port = [1,3,4,9,6,4,89,43]
-    res = CAGA(my_list_port)
+    res = CAGA(my_list_port,-1)
     for x in range(len(res)):
         print("CLUSTER " + str(x))
         for y in range(len(res[x])):
@@ -58,7 +61,7 @@ if __name__ == "__main__":
     
     my_list_ip = [int(addr1), int(addr2), int(addr3), int(addr4)]
     
-    res = CAGA(my_list_ip)
+    res = CAGA(my_list_ip,-1)
 
     print("brut : " + str(res))
 
