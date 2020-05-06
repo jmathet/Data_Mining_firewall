@@ -58,7 +58,7 @@ def filtering_rule_generation(premitives_rules):
             id_rules_to_be_clustered_group2 = [p for p in id_rules_to_be_clustered if p > 49151]
             # Group PORT_dst
             if len(id_rules_to_be_clustered_group1)>1: # If clustering is necessary in group 1
-                clusters = CAGA(premitives_rules[id_rules_to_be_clustered, PORT_dst], 1) # Use CAGA with threshold=1
+                clusters = CAGA(premitives_rules[id_rules_to_be_clustered_group1, PORT_dst], 1) # Use CAGA with threshold=1
                 for id in id_rules_to_be_clustered_group1:
                     cluster = get_cluster_of_membership(clusters, premitives_rules[id,PORT_dst])# Find cluster
                     premitives_rules[id,IP_dst] = cluster # Group adjacent ports

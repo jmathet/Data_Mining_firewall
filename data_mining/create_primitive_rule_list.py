@@ -4,7 +4,7 @@
 # OUTPUT : File with primitive rules (= list og unique logs)
 
 import numpy as np
-from tools import read_in_csv_file, unique
+from tools import read_in_csv_file
 
 def delete_redondancies(matrix):
     print(matrix)
@@ -12,9 +12,7 @@ def delete_redondancies(matrix):
     id_rules_to_delete = []
     colums_count = np.size(matrix,1)-1
     for x in range(1, len(matrix)-1):
-        print("---x ",x)
         for y in range(x+1, len(matrix)):
-            print("---y ",y)
             res = np.all(matrix[x,0:colums_count] == matrix[y,0:colums_count]) # True = all True / False = At least 1 False
             if res and int(matrix[y,colums_count])!=0: # If True 
                 print("Rows ",x," and ",y," --> Redondance found")

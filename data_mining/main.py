@@ -19,6 +19,8 @@ if __name__ == "__main__":
     rules = filtering_rule_generation(premitive_rules)  
 
     # STEP 3: Ordering rules  
+
+    # STEP 4 : Write in csv file
     
     # DISPLAYS
     print(matrix)

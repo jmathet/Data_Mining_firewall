@@ -31,10 +31,3 @@ def get_cluster_of_membership(clusters, member):
             if member==element:
                 return cluster                
     return "cluster not found"
-
-# Function to get unique values
-def unique(list): 
-    # insert the list to the set 
-    list_set = set(list) 
-    # convert the set to the list 
-    unique_list = (list(list_set)) 
