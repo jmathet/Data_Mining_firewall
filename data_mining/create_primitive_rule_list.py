@@ -7,8 +7,6 @@ import numpy as np
 from tools import read_in_csv_file
 
 def delete_redondancies(matrix):
-    print(matrix)
-    print("len(matrix)",len(matrix))
     id_rules_to_delete = []
     colums_count = np.size(matrix,1)-1
     for x in range(1, len(matrix)-1):
@@ -19,12 +17,9 @@ def delete_redondancies(matrix):
                 id_rules_to_delete.append(y)
                 matrix[x,colums_count] = int(matrix[x,colums_count]) + int(matrix[y,colums_count])
                 matrix[y,colums_count] = 0
-
     id_rules_to_delete = sorted(id_rules_to_delete,reverse=True)
-    print(id_rules_to_delete)
     for id in id_rules_to_delete: # Delete from the end to the begining
         matrix = np.delete(matrix, id, axis=0) # Row to delete
-
     return matrix
 
 if __name__ == "__main__":
