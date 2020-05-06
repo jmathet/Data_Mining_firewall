@@ -7,7 +7,7 @@
 - [x] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
 - [ ] Ecrire algo "main" FRG
     - [x] STEP 1: Regroupement @IP SRC qui ont même @IP DST et PORT
-	- [ ] STEP 2: Regroupement @IP DST qui ont même @IP SRC et PORT
+	- [x] STEP 2: Regroupement @IP DST qui ont même @IP SRC et PORT
 	- [ ] STEP 3: Regroupement  PORT   qui ont même @IP SRC et @IP DST
     - [x] STEP 4: Suppresion des redondances (adapter algo génération "premitive rules")
     - [ ] STEP 5: Cluster généralisation
