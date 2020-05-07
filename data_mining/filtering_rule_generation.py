@@ -6,7 +6,7 @@ import numpy
 import ipaddress
 from clustering_algo_gap_analysis import CAGA
 from create_primitive_rule_list import delete_redondancies
-from tools import read_in_csv_file, IP_src, IP_dst, PORT_dst, get_cluster_of_membership
+from tools import read_in_csv_file, IP_src, IP_dst, PORT_dst, get_cluster_of_membership, network
 
 def filtering_rule_generation(premitives_rules):
     # STEP 1: Group @IP SRC with fixed @IP DST and fixed PORT
@@ -29,7 +29,7 @@ def filtering_rule_generation(premitives_rules):
                     premitives_rules[id,IP_src] = cluster # Replace IP_src by the correct cluster
                 # Display custers
                 for x in range(len(clusters)):
-                    print("CLUSTER " + str(x))
+                    print("IP_src CLUSTER ",x,"--> IP_dst =",premitives_rules[id,IP_dst],"PORT_dst =",  premitives_rules[id,PORT_dst])
                     for y in range(len(clusters[x])):
                         clusters[x][y] = ipaddress.ip_address(clusters[x][y])
                         print("   " + str(clusters[x][y]))
@@ -53,7 +53,7 @@ def filtering_rule_generation(premitives_rules):
                     premitives_rules[id,IP_dst] = cluster # Replace IP_src by the correct cluster
                 # Display custers
                 for x in range(len(clusters)):
-                    print("CLUSTER " + str(x))
+                    print("IP_dst CLUSTER ",x,"--> IP_src =",premitives_rules[id,IP_src],"PORT_dst =",  premitives_rules[id,PORT_dst])
                     for y in range(len(clusters[x])):
                         clusters[x][y] = ipaddress.ip_address(clusters[x][y])
                         print("   " + str(clusters[x][y]))
@@ -86,7 +86,7 @@ def filtering_rule_generation(premitives_rules):
                     print(cluster)
                 # Display clusters
                 for x in range(len(clusters)):
-                    print("CLUSTER " + str(x))
+                    print("PORT_dst CLUSTER ",x,"--> IP_src =",premitives_rules[id,IP_src],"IP_dst =",  premitives_rules[id,IP_dst])
                     for y in range(len(clusters[x])):
                         print("   " + str(clusters[x][y]))
             if len(id_rules_to_be_clustered_group2)>=2: # If clustering is necessary in group 2 and size >2
@@ -95,7 +95,7 @@ def filtering_rule_generation(premitives_rules):
                 for id in id_rules_to_be_clustered_group2:
                     premitives_rules[id,PORT_dst] = cluster # Replace PORT_dst by the correct cluster
                 # Display custers
-                print("CLUSTER > 49151")
+                print("PORT_dst CLUSTER >49151 --> IP_src =",premitives_rules[id,IP_src],"IP_dst =",  premitives_rules[id,IP_dst])
                 for port in cluster:
                     print("   " + port)
                 
@@ -103,5 +103,13 @@ def filtering_rule_generation(premitives_rules):
     rules = delete_redondancies(premitives_rules)
 
     # STEP 5: Cluster generalization
-
+    for i in range(1, len(rules)):
+        if type(rules[i, IP_src])==list: # If IP_src(x) is a cluster (=list)
+            cluster_IP_src = rules[i, IP_src]
+            net_IP_src = network(int(cluster_IP_src[0]), int(cluster_IP_src[-1])) # Netmask on the fist and the last element of the cluster
+            rules[i, IP_src] = ipaddress.ip_network(net_IP_src)
+        if type(rules[i, IP_dst])==list: # If IP_dst(x) is a cluster (=list)
+            cluster_IP_dst = rules[i, IP_dst]
+            net_IP_dst = network(int(cluster_IP_dst[0]), int(cluster_IP_dst[-1])) # Netmask on the fist and the last element of the cluster
+            rules[i, IP_dst] = ipaddress.ip_network(net_IP_dst)
     return rules

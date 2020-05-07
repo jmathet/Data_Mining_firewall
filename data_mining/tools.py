@@ -31,3 +31,30 @@ def get_cluster_of_membership(clusters, member):
             if member==element:
                 return cluster                
     return "cluster not found"
+
+def network(ip1, ip2):
+    tab1 = [None]*32
+    tab2 = [None]*32
+    q1=ip1
+    q2=ip2
+    for i in range(31,-1,-1):
+        r1 = q1%2
+        q1 = q1//2
+        r2 = q2%2
+        q2 = q2//2
+        tab1[i] = r1
+        tab2[i] = r2
+    n = 0
+    net = [0]*32
+    for j in range(0,32):
+        if tab1[j]==tab2[j]:
+            n += 1
+            net[j] = 1
+    net_int = int("".join(str(x) for x in net), 2) 
+    ip = ip1&net_int
+    ip = str(ipaddress.IPv4Address(ip)) + "/" + str(n)
+    return (ip)
+
+def IP2Network(IP, net_bits, net_number):
+    IP = str(ipaddress.IPv4Address(IP)) + "/" + str(net_number)
+    return IP
