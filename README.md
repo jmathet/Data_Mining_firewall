@@ -5,23 +5,23 @@
 - [x] Choisir structure de données adaptées aux logs / règles de FW
 - [x] Ecrire algo génération "premitive rules" --> rèles identiques
 - [x] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
-- [ ] Ecrire algo "main" FRG
+- [x] Ecrire algo "main" FRG
     - [x] STEP 1: Regroupement @IP SRC qui ont même @IP DST et PORT
 	- [x] STEP 2: Regroupement @IP DST qui ont même @IP SRC et PORT
-	- [ ] STEP 3: Regroupement  PORT   qui ont même @IP SRC et @IP DST
+	- [x] STEP 3: Regroupement  PORT   qui ont même @IP SRC et @IP DST
     - [x] STEP 4: Suppresion des redondances (adapter algo génération "premitive rules")
-    - [ ] STEP 5: Cluster généralisation
+    - [x] STEP 5: Cluster généralisation
+- [x] Créer fonction écrriture dans fichier .xlxs
 
-- [ ] Ecrire algo d'ordonnancement des règles
-- [ ] Créer fichier avec les variables
+- [ ] Ecrire algo d'ordonnancement des règles (basé sur le nombre count)
 - [ ] Lire CSV file en argument du main.py
-
-Si solution avec arbre :
-- [ ] Trouver librairie pour construction arbre de décision
-- [ ] Ecrire algo génération arbre de décision
+- [ ] Prendre en compte protocole dans concaténation des ports
+- [ ] Amélioration précision généralisation IP pour coller à la réalité (Max /24 et Min /27)
+- [ ] Amélioration concaténation des ports : pouvoir mettre un range et un port unique pour une règle
 
 Bonus :
 - [ ] Ecrire script installation prérequis auto
+- [ ] Créer fichier avec les variables
 
 # Description projet
 **Projet** : Optimisation algo machine learning pour configurer automatiquement des pare-feux

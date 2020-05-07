@@ -82,8 +82,8 @@ def filtering_rule_generation(premitives_rules):
                 clusters = CAGA(premitives_rules[id_rules_to_be_clustered_group1, PORT_dst], 1) # Use CAGA with threshold=1
                 for id in id_rules_to_be_clustered_group1:
                     cluster = get_cluster_of_membership(clusters, premitives_rules[id,PORT_dst])# Find cluster
-                    premitives_rules[id,PORT_dst] = cluster # Group adjacent ports
-                    print(cluster)
+                    if len(cluster)>1: # If cluster is composed of more than 1 element
+                        premitives_rules[id,PORT_dst] = cluster # Group adjacent ports
                 # Display clusters
                 for x in range(len(clusters)):
                     print("PORT_dst CLUSTER ",x,"--> IP_src =",premitives_rules[id,IP_src],"IP_dst =",  premitives_rules[id,IP_dst])
