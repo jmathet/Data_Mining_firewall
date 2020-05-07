@@ -75,7 +75,7 @@ def filtering_rule_generation(premitives_rules):
                 p = int(premitives_rules[x,PORT_dst])
                 if p>1024 and p<=49151 :
                     id_rules_to_be_clustered_group1.append(id)
-                if p > 49151:
+                if p>49151:
                     id_rules_to_be_clustered_group2.append(id)
             # Group PORT_dst
             if len(id_rules_to_be_clustered_group1)>1: # If clustering is necessary in group 1
@@ -112,4 +112,10 @@ def filtering_rule_generation(premitives_rules):
             cluster_IP_dst = rules[i, IP_dst]
             net_IP_dst = network(int(cluster_IP_dst[0]), int(cluster_IP_dst[-1])) # Netmask on the fist and the last element of the cluster
             rules[i, IP_dst] = ipaddress.ip_network(net_IP_dst)
+        if type(rules[i, PORT_dst])==list: # If PORT_dst(x) is a cluster (=list)
+            cluster_PORT_dst = rules[i, PORT_dst]
+            if int(cluster_PORT_dst[0])>1024 and int(cluster_PORT_dst[-1])<=49151 :
+                rules[i, PORT_dst] = str(cluster_PORT_dst[0]) + ":" + str(cluster_PORT_dst[-1])
+            if int(cluster_PORT_dst[0])>49151 :
+                rules[i, PORT_dst] = ">49151"
     return rules
