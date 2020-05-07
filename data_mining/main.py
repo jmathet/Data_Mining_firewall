@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from tools import read_in_csv_file
+from tools import read_in_csv_file, write_in_csv_file
 from create_primitive_rule_list import delete_redondancies
 from filtering_rule_generation import filtering_rule_generation
 
@@ -20,6 +20,7 @@ if __name__ == "__main__":
     # STEP 3: Ordering rules  
 
     # STEP 4 : Write in csv file
+    write_in_csv_file(rules, "./resultat_file.xlsx")
     
     # DISPLAYS
     print("Number initial of logs = ",len(matrix)-1)

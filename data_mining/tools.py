@@ -3,6 +3,7 @@
 import csv
 import numpy as np
 import ipaddress
+import xlsxwriter
 
 IP_src = 0
 IP_dst = 1
@@ -58,3 +59,31 @@ def network(ip1, ip2):
 def IP2Network(IP, net_bits, net_number):
     IP = str(ipaddress.IPv4Address(IP)) + "/" + str(net_number)
     return IP
+
+
+def write_in_csv_file(data, path):
+    workbook = xlsxwriter.Workbook(path)
+    print(workbook)
+    worksheet = workbook.add_worksheet()
+    # Widen the first column to make the text clearer.
+    worksheet.set_column('A:A', 20)
+    worksheet.set_column('B:B', 20)
+    worksheet.set_column('C:C', 20)
+    worksheet.set_column('D:D', 20)
+    worksheet.set_column('E:E', 20)
+    worksheet.set_column('F:F', 20)
+
+    bold = workbook.add_format({'bold': True})
+
+    worksheet.write('A1', 'IP SRC', bold)
+    worksheet.write('B1', 'IP DST', bold)
+    worksheet.write('C1', 'PORT DST', bold)
+    worksheet.write('D1', 'PROTOCOL', bold)
+    worksheet.write('E1', 'PROTOCOL', bold)
+    worksheet.write('F1', 'COUNT', bold)
+    
+    for x in range(1, np.size(data,0)):
+        for y in range(0,np.size(data,1)):
+            worksheet.write(x, y, str(data[x,y]))
+
+    workbook.close()
