@@ -33,6 +33,7 @@ def filtering_rule_generation(premitives_rules):
                     for y in range(len(clusters[x])):
                         clusters[x][y] = ipaddress.ip_address(clusters[x][y])
                         print("   " + str(clusters[x][y]))
+
     # STEP 2: Group @IP DST with fixed @IP SRC and fixed PORT
     print(">>>> STEP 2: Group @IP DST with fixed @IP SRC and fixed PORT <<<<")
     for x in range(1, len(premitives_rules)-1):
@@ -103,12 +104,13 @@ def filtering_rule_generation(premitives_rules):
     rules = delete_redondancies(premitives_rules)
 
     # STEP 5: Cluster generalization
+    MIN_LENGTH_CLUSTER = 10
     for i in range(1, len(rules)):
-        if type(rules[i, IP_src])==list: # If IP_src(x) is a cluster (=list)
+        if type(rules[i, IP_src])==list and len(rules[i, IP_src])>=MIN_LENGTH_CLUSTER: # If IP_src(x) is a cluster (=list) and len >= MIN_LENGTH_CLUSTER
             cluster_IP_src = rules[i, IP_src]
             net_IP_src = network(int(cluster_IP_src[0]), int(cluster_IP_src[-1])) # Netmask on the fist and the last element of the cluster
             rules[i, IP_src] = ipaddress.ip_network(net_IP_src)
-        if type(rules[i, IP_dst])==list: # If IP_dst(x) is a cluster (=list)
+        if type(rules[i, IP_dst])==list and len(rules[i, IP_dst])>=MIN_LENGTH_CLUSTER: # If IP_dst(x) is a cluster (=list)
             cluster_IP_dst = rules[i, IP_dst]
             net_IP_dst = network(int(cluster_IP_dst[0]), int(cluster_IP_dst[-1])) # Netmask on the fist and the last element of the cluster
             rules[i, IP_dst] = ipaddress.ip_network(net_IP_dst)

@@ -21,7 +21,7 @@ def CAGA(list, threshold):
 
     if threshold==-1: # If argument is not gave
         """threshold = 0.2 * max(delta)"""
-        threshold = 256
+        threshold = 254
     
     print("threshold = " + str(threshold))
 
