@@ -4,6 +4,7 @@ import csv
 import numpy as np
 import ipaddress
 import xlsxwriter
+import sys
 
 IP_src = 0
 IP_dst = 1
@@ -12,17 +13,22 @@ PORT_dst = 2
 def read_in_csv_file(path):
     # Read in csv file and return data as matrix
     matrix = np.array([['IP SRC', 'IP DST', 'PORT SRC', 'PORT DST', 'PROTOCOL', 'ACTION']])
-    with open(path, 'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            row[0] = ipaddress.ip_address(row[0])
-            row[1] = ipaddress.ip_address(row[1])
-            matrix = np.concatenate((matrix,[row]),axis=0) # Adds arr2 as rows to the end of matrix
+    try:
+        with open(path, 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                row[0] = ipaddress.ip_address(row[0])
+                row[1] = ipaddress.ip_address(row[1])
+                matrix = np.concatenate((matrix,[row]),axis=0) # Adds arr2 as rows to the end of matrix
 
-    # Add count column (1 for each row)
-    count = np.ones((len(matrix),1), dtype=np.int)
-    matrix = np.concatenate((matrix,count),axis=1) # Adds arr2 as columns to the end of matrix
-    matrix[0,6] = 'COUNT'     
+        # Add count column (1 for each row)
+        count = np.ones((len(matrix),1), dtype=np.int)
+        matrix = np.concatenate((matrix,count),axis=1) # Adds arr2 as columns to the end of matrix
+        matrix[0,6] = 'COUNT'   
+    except IOError:
+        sys.exit("/!\ Cannot open " + str(path))
+    else :
+        print ("Read in file OK")
 
     return matrix
 
@@ -63,7 +69,6 @@ def IP2Network(IP, net_bits, net_number):
 
 def write_in_csv_file(data, path):
     workbook = xlsxwriter.Workbook(path)
-    print(workbook)
     worksheet = workbook.add_worksheet()
     # Widen the first column to make the text clearer.
     worksheet.set_column('A:A', 20)
@@ -84,6 +89,24 @@ def write_in_csv_file(data, path):
     
     for x in range(1, np.size(data,0)):
         for y in range(0,np.size(data,1)):
-            worksheet.write(x, y, str(data[x,y]))
-
-    workbook.close()
+            if type(data[x,y])==list:
+                cell = str()
+                for list_element in data[x,y]:
+                    cell = cell + str(list_element)
+            else:
+                cell = str(data[x,y])       
+            worksheet.write(x, y, cell)
+    while True:
+        try:
+            workbook.close()
+        except xlsxwriter.exceptions.FileCreateError as e:
+            decision = input("/!\ Error %s\n"
+                                "Please close the file if it is open in Excel.\n"
+                                "Try to write file again? [Y/n]: " % e)
+            if decision != 'n':
+                continue
+            else:
+                sys.exit("/!\ Error during saving data")
+        else :
+            print ("Write results in file " + str(path))
+        break

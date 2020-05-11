@@ -15,17 +15,10 @@ if __name__ == "__main__":
     matrix = np.delete(premitive_rules, 2, axis=1) # Delete column PORT SRC
 
     # STEP 2: Geralization of primitive rules to rules 
-    rules = filtering_rule_generation(matrix)  
+    rules = filtering_rule_generation(matrix)
+    print("Number initial of logs = " + str(len(matrix)-1) + " >> Number final of rules = " + str(len(rules)-1))
 
     # STEP 3: Ordering rules  
 
     # STEP 4 : Write in csv file
     write_in_csv_file(rules, "./resultat_file.xlsx")
-    
-    # DISPLAYS
-    print("Number initial of logs = ",len(matrix)-1)
-    print("===============")
-    print("Number final of rules = ",len(rules)-1)
-    
-    for rule in rules:
-        print(rule)
