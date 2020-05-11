@@ -9,6 +9,8 @@ import sys
 IP_src = 0
 IP_dst = 1
 PORT_dst = 2
+PROTO = 3
+MIN_LENGTH_CLUSTER = 10
 
 def read_in_csv_file(path):
     # Read in csv file and return data as matrix

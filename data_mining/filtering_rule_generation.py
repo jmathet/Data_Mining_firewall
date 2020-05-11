@@ -6,7 +6,7 @@ import numpy
 import ipaddress
 from clustering_algo_gap_analysis import CAGA
 from create_primitive_rule_list import delete_redondancies
-from tools import read_in_csv_file, IP_src, IP_dst, PORT_dst, get_cluster_of_membership, network
+from tools import read_in_csv_file, IP_src, IP_dst, PORT_dst, PROTO, MIN_LENGTH_CLUSTER, get_cluster_of_membership, network
 
 def filtering_rule_generation(premitives_rules):
     # STEP 1: Group @IP SRC with fixed @IP DST and fixed PORT
@@ -64,10 +64,11 @@ def filtering_rule_generation(premitives_rules):
     for x in range(1, len(premitives_rules)-1):
         if type(premitives_rules[x,PORT_dst])!=list: # If PORT_dst(x) is not already a cluster (=list)
             id_rules_to_be_clustered = [x]
-            # Search rules where IP_src(x)==IP_src(y) and IP_dst(x)==IP_dst(y)
+            # Search rules where IP_src(x)==IP_src(y) and IP_dst(x)==IP_dst(y) and Proto(x)==Proto(y)
             for y in range(x+1, len(premitives_rules)):
                 if      (premitives_rules[y,IP_src]==premitives_rules[x,IP_src]) \
-                    and (premitives_rules[y,IP_dst]==premitives_rules[x,IP_dst]):
+                    and (premitives_rules[y,IP_dst]==premitives_rules[x,IP_dst]) \
+                    and (premitives_rules[y,PROTO]==premitives_rules[x,PROTO]):
                     id_rules_to_be_clustered.append(y)
             # Create group of clusters (Nothing to do with ports <= 1024)
             id_rules_to_be_clustered_group1 = []
@@ -104,7 +105,6 @@ def filtering_rule_generation(premitives_rules):
     rules = delete_redondancies(premitives_rules)
 
     # STEP 5: Cluster generalization
-    MIN_LENGTH_CLUSTER = 10
     for i in range(1, len(rules)):
         if type(rules[i, IP_src])==list and len(rules[i, IP_src])>=MIN_LENGTH_CLUSTER: # If IP_src(x) is a cluster (=list) and len >= MIN_LENGTH_CLUSTER
             cluster_IP_src = rules[i, IP_src]
