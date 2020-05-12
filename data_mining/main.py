@@ -8,7 +8,7 @@ import numpy as np
 
 if __name__ == "__main__":
     # STEP 0: Read csv file
-    data = read_in_csv_file("../../Logs/avec_ip/logs_test_simple.csv")
+    data = read_in_csv_file("./logs_test_simple.csv")
     
     # STEP 1: Generate primitive rules
     premitive_rules = delete_redondancies(data)
