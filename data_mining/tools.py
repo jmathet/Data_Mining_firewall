@@ -94,7 +94,10 @@ def write_in_csv_file(data, path):
             if type(data[x,y])==list:
                 cell = str()
                 for list_element in data[x,y]:
-                    cell = cell + str(list_element)
+                    if len(cell)==0:
+                        cell = str(list_element)
+                    else:
+                        cell = cell + "," + str(list_element)
             else:
                 cell = str(data[x,y])       
             worksheet.write(x, y, cell)
