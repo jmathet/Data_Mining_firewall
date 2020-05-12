@@ -117,7 +117,10 @@ def filtering_rule_generation(premitives_rules):
         if type(rules[i, PORT_dst])==list: # If PORT_dst(x) is a cluster (=list)
             cluster_PORT_dst = rules[i, PORT_dst]
             if int(cluster_PORT_dst[0])>1024 and int(cluster_PORT_dst[-1])<=49151 :
-                rules[i, PORT_dst] = str(cluster_PORT_dst[0]) + ":" + str(cluster_PORT_dst[-1])
+                if cluster_PORT_dst[0]==cluster_PORT_dst[-1]:
+                    rules[i, PORT_dst] = cluster_PORT_dst[0]
+                else:
+                    rules[i, PORT_dst] = str(cluster_PORT_dst[0]) + ":" + str(cluster_PORT_dst[-1])
             if int(cluster_PORT_dst[0])>49151 :
                 rules[i, PORT_dst] = ">49151"
     return rules
