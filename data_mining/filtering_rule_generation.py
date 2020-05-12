@@ -15,7 +15,7 @@ def filtering_rule_generation(premitives_rules):
         if type(premitives_rules[x,IP_src])!=list: # If IP_src(x) is not already a cluster (=list)
             id_rules_to_be_clustered = [x]
             for y in range(x+1, len(premitives_rules)):
-                # If IP_dst(x)==IP_dst(y) and PORT_dst(x)==PORT_dst(y) and IP_src(x)==IP_src(y)
+                # If IP_dst(x)==IP_dst(y) and PORT_dst(x)==PORT_dst(y) and IP_src(x)!=IP_src(y)
                 if      (premitives_rules[y,IP_dst]==premitives_rules[x,IP_dst]) \
                     and (premitives_rules[y,PORT_dst]==premitives_rules[x,PORT_dst])\
                     and (premitives_rules[y,IP_src]!=premitives_rules[x,IP_src]):
@@ -39,7 +39,7 @@ def filtering_rule_generation(premitives_rules):
     for x in range(1, len(premitives_rules)-1):
         if type(premitives_rules[x,IP_dst])!=list: # If IP_dst(x) is not already a cluster (=list)
             id_rules_to_be_clustered = [x]
-            # Search rules where IP_src(x)==IP_src(y) and PORT_dst(x)==PORT_dst(y) and IP_dst(x)==IP_dst(y)
+            # Search rules where IP_src(x)==IP_src(y) and PORT_dst(x)==PORT_dst(y) and IP_dst(x)!=IP_dst(y)
             for y in range(x+1, len(premitives_rules)):
                 if      (premitives_rules[y,IP_src]==premitives_rules[x,IP_src]) \
                     and (premitives_rules[y,PORT_dst]==premitives_rules[x,PORT_dst]) \

@@ -68,6 +68,14 @@ def IP2Network(IP, net_bits, net_number):
     IP = str(ipaddress.IPv4Address(IP)) + "/" + str(net_number)
     return IP
 
+def list2string(data):
+    cell = str()
+    for list_element in data:
+        if len(cell)==0:
+            cell = str(list_element)
+        else:
+            cell = cell + "," + str(list_element)
+    return cell
 
 def write_in_csv_file(data, path):
     workbook = xlsxwriter.Workbook(path)
@@ -79,6 +87,9 @@ def write_in_csv_file(data, path):
     worksheet.set_column('D:D', 20)
     worksheet.set_column('E:E', 20)
     worksheet.set_column('F:F', 20)
+
+    cell_format = workbook.add_format()
+    cell_format.set_text_wrap()
 
     bold = workbook.add_format({'bold': True})
 
@@ -92,15 +103,10 @@ def write_in_csv_file(data, path):
     for x in range(1, np.size(data,0)):
         for y in range(0,np.size(data,1)):
             if type(data[x,y])==list:
-                cell = str()
-                for list_element in data[x,y]:
-                    if len(cell)==0:
-                        cell = str(list_element)
-                    else:
-                        cell = cell + "," + str(list_element)
+                cell = list2string(data[x,y])
             else:
                 cell = str(data[x,y])       
-            worksheet.write(x, y, cell)
+            worksheet.write(x, y, cell, cell_format)
     while True:
         try:
             workbook.close()
