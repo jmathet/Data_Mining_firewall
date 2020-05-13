@@ -15,9 +15,10 @@ def filtering_rule_generation(premitives_rules):
         if type(premitives_rules[x,IP_src])!=list: # If IP_src(x) is not already a cluster (=list)
             id_rules_to_be_clustered = [x]
             for y in range(x+1, len(premitives_rules)):
-                # If IP_dst(x)==IP_dst(y) and PORT_dst(x)==PORT_dst(y) and IP_src(x)!=IP_src(y)
+                # If IP_dst(x)==IP_dst(y) and PORT_dst(x)==PORT_dst(y) and IP_src(x)!=IP_src(y) and IP_src(y) not a list
                 if      (premitives_rules[y,IP_dst]==premitives_rules[x,IP_dst]) \
                     and (premitives_rules[y,PORT_dst]==premitives_rules[x,PORT_dst])\
+                    and (type(premitives_rules[y,IP_src])!=list)\
                     and (premitives_rules[y,IP_src]!=premitives_rules[x,IP_src]):
                     id_rules_to_be_clustered.append(y)
             # Group IP_src --> CAGA
@@ -43,6 +44,7 @@ def filtering_rule_generation(premitives_rules):
             for y in range(x+1, len(premitives_rules)):
                 if      (premitives_rules[y,IP_src]==premitives_rules[x,IP_src]) \
                     and (premitives_rules[y,PORT_dst]==premitives_rules[x,PORT_dst]) \
+                    and (type(premitives_rules[y,IP_dst])!=list)\
                     and (premitives_rules[y,IP_dst]!=premitives_rules[x,IP_dst]):
                     id_rules_to_be_clustered.append(y)
             # Group IP_dst --> CAGA
@@ -68,6 +70,7 @@ def filtering_rule_generation(premitives_rules):
             for y in range(x+1, len(premitives_rules)):
                 if      (premitives_rules[y,IP_src]==premitives_rules[x,IP_src]) \
                     and (premitives_rules[y,IP_dst]==premitives_rules[x,IP_dst]) \
+                    and (type(premitives_rules[y,PORT_dst])!=list)\
                     and (premitives_rules[y,PROTO]==premitives_rules[x,PROTO]):
                     id_rules_to_be_clustered.append(y)
             # Create group of clusters (Nothing to do with ports <= 1024)

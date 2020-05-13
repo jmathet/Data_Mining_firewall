@@ -5,12 +5,10 @@ from tools import IP_src, IP_dst, PORT_dst, PROTO, list2string
 def group_proto_ports(rules):
     # Group proto/ports
     for x in range(1, len(rules)-1):
-        print("x",x)
         current_port = rules[x,PORT_dst]
         if current_port[0:3]!="tcp" and current_port[0:3]!="udp" and current_port[0:3]!="icmp": # If PORT_dst(x) is not already a cluster (=list)
             id_rules_to_be_clustered = [x]
             for y in range(x+1, len(rules)):
-                print("y",y)
                 if      (rules[y,IP_src]==rules[x,IP_src]) \
                     and (rules[y,IP_dst]==rules[x,IP_dst]):
                     id_rules_to_be_clustered.append(y)
@@ -34,9 +32,13 @@ def group_proto_ports(rules):
                 if len(tcp_ports)!=0:
                     ports_list_in_string = ports_list_in_string + "tcp/" + list2string(tcp_ports)
                 if len(udp_ports)!=0:
-                    ports_list_in_string = ports_list_in_string + "\nudp/" + list2string(udp_ports)
-                if len(icmp_ports)!=0:
-                    ports_list_in_string = ports_list_in_string + "\nicmp/" + list2string(icmp_ports)
+                    if len(ports_list_in_string)!=0: # Check if a new line is required
+                        ports_list_in_string = ports_list_in_string + "\n"
+                    ports_list_in_string = ports_list_in_string + "udp/" + list2string(udp_ports)
+                if len(icmp_ports)>1:
+                    if len(ports_list_in_string)!=0: # Check if a new line is required
+                        ports_list_in_string = ports_list_in_string + "\n"
+                    ports_list_in_string = ports_list_in_string + "icmp/any" 
                 rules[id,PORT_dst] = ports_list_in_string # Replace PORT_dst by list
     # Display proto/port when group not applicable
     for x in range(1, len(rules)):
