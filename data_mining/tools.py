@@ -96,9 +96,8 @@ def write_in_csv_file(data, path):
     worksheet.write('A1', 'IP SRC', bold)
     worksheet.write('B1', 'IP DST', bold)
     worksheet.write('C1', 'PORT DST', bold)
-    worksheet.write('D1', 'PROTOCOL', bold)
-    worksheet.write('E1', 'PROTOCOL', bold)
-    worksheet.write('F1', 'COUNT', bold)
+    worksheet.write('D1', 'ACTION', bold)
+    worksheet.write('E1', 'COUNT', bold)
     
     for x in range(1, np.size(data,0)):
         for y in range(0,np.size(data,1)):
