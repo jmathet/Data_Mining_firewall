@@ -56,7 +56,7 @@ def network(ip1, ip2):
         tab2[i] = r2
     n = 0
     net = [0]*32
-    while tab1[n]==tab2[n]:
+    while (n<32) and (tab1[n]==tab2[n]):
         net[n] = 1
         n += 1
     net_int = int("".join(str(x) for x in net), 2) 
