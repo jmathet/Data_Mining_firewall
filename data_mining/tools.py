@@ -55,10 +55,9 @@ def network(ip1, ip2):
         tab2[i] = r2
     n = 0
     net = [0]*32
-    for j in range(0,32):
-        if tab1[j]==tab2[j]:
-            n += 1
-            net[j] = 1
+    while tab1[n]==tab2[n]:
+        net[n] = 1
+        n += 1
     net_int = int("".join(str(x) for x in net), 2) 
     ip = ip1&net_int
     ip = str(ipaddress.IPv4Address(ip)) + "/" + str(n)
