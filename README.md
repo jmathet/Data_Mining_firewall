@@ -13,11 +13,11 @@
     - [x] STEP 5: Cluster généralisation
 - [x] Créer fonction écrriture dans fichier .xlxs
 
-- [ ] Ecrire algo d'ordonnancement des règles (basé sur le nombre count)
+- [x] Ecrire algo d'ordonnancement des règles (basé sur le nombre count)
 - [ ] Lire CSV file en argument du main.py
-- [ ] Prendre en compte protocole dans concaténation des ports
+- [x] Prendre en compte protocole dans concaténation des ports
 - [ ] Amélioration précision généralisation IP pour coller à la réalité (Max /24 et Min /27)
-- [ ] Amélioration concaténation des ports : pouvoir mettre un range et un port unique pour une règle
+- [x] Amélioration concaténation des ports : pouvoir mettre un range et un port unique pour une règle
 
 Bonus :
 - [ ] Ecrire script installation prérequis auto
