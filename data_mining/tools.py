@@ -99,13 +99,13 @@ def write_in_csv_file(data, path):
     worksheet.write('D1', 'ACTION', bold)
     worksheet.write('E1', 'COUNT', bold)
     
-    for x in range(1, np.size(data,0)):
+    for x in range(0, np.size(data,0)):
         for y in range(0,np.size(data,1)):
             if type(data[x,y])==list:
                 cell = list2string(data[x,y])
             else:
                 cell = str(data[x,y])       
-            worksheet.write(x, y, cell, cell_format)
+            worksheet.write(x+1, y, cell, cell_format)
     while True:
         try:
             workbook.close()

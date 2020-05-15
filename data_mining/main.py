@@ -9,7 +9,7 @@ import numpy as np
 
 if __name__ == "__main__":
     # STEP 0: Read csv file
-    data = read_in_csv_file("./logs_test_simple.csv")
+    data = read_in_csv_file("./new_test.csv")
     
     # STEP 1: Generate primitive rules
     premitive_rules = delete_redondancies(data)
@@ -24,8 +24,11 @@ if __name__ == "__main__":
     rules = delete_redondancies(rules)
 
     # STEP 4: Ordering rules  
+    rules = np.delete(rules, 0, axis=0) # Delete first line 
+    index_order = np.argsort(rules[:, -1])  # Ordering
+    rules_ordered = rules[index_order[::-1]] # Reverse order
 
     # STEP 5 : Write in csv file
-    write_in_csv_file(rules, "./resultat_file.xlsx")
+    write_in_csv_file(rules_ordered, "./resultat_file.xlsx")
     print("Number initial of logs = " + str(len(matrix)-1) + " >> Number final of rules = " + str(len(rules)-1))
 
