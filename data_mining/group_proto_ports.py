@@ -23,9 +23,9 @@ def group_proto_ports(rules):
                     udp_ports.append(rules[id,PORT_dst])
                 elif rules[id,PROTO]=="icmp":
                     icmp_ports.append(rules[id,PORT_dst])
-            print(tcp_ports)
-            print(udp_ports)
-            print(icmp_ports)
+            print("tcp",tcp_ports)
+            print("udp",udp_ports)
+            print("icmp",icmp_ports)
             # Replace PORT_dst by lists
             for id in id_rules_to_be_clustered:
                 ports_list_in_string = str()
@@ -39,10 +39,11 @@ def group_proto_ports(rules):
                     if len(ports_list_in_string)!=0: # Check if a new line is required
                         ports_list_in_string = ports_list_in_string + "\n"
                     ports_list_in_string = ports_list_in_string + "icmp/any" 
-                rules[id,PORT_dst] = ports_list_in_string # Replace PORT_dst by list
+                if len(ports_list_in_string)!=0:
+                    rules[id,PORT_dst] = ports_list_in_string # Replace PORT_dst by list
     # Display proto/port when group not applicable
     for x in range(1, len(rules)):
         current_port = rules[x,PORT_dst]
-        if current_port[0:3]!="tcp" and current_port[0:3]!="udp" and current_port[0:3]!="icmp": # If PORT_dst(x) is not already a cluster (=list)
+        if current_port[0:3]!="tcp" and current_port[0:3]!="udp" and current_port[0:4]!="icmp": # If PORT_dst(x) is not already a cluster (=list)
             rules[x,PORT_dst] = rules[x,PROTO] + "/" + rules[x,PORT_dst]
     return rules
