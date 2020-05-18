@@ -6,7 +6,7 @@ import numpy
 import ipaddress
 from clustering_algo_gap_analysis import CAGA
 from create_primitive_rule_list import delete_redondancies
-from tools import read_in_csv_file, IP_src, IP_dst, PORT_dst, PROTO, MIN_LENGTH_CLUSTER, get_cluster_of_membership, network
+from tools import read_in_csv_file, IP_src, IP_dst, PORT_dst, PROTO, MIN_LENGTH_CLUSTER, get_cluster_of_membership, network, listString2int
 
 def filtering_rule_generation(premitives_rules):
     # STEP 1: Group @IP SRC with fixed @IP DST and fixed PORT
@@ -55,11 +55,11 @@ def filtering_rule_generation(premitives_rules):
                     cluster = get_cluster_of_membership(clusters, premitives_rules[id,IP_dst]) # Find cluster
                     premitives_rules[id,IP_dst] = cluster # Replace IP_src by the correct cluster
                 # Display custers
-                for x in range(len(clusters)):
-                    print("IP_dst CLUSTER ",x,"--> IP_src =",premitives_rules[id,IP_src],"PORT_dst =",  premitives_rules[id,PORT_dst])
-                    for y in range(len(clusters[x])):
-                        clusters[x][y] = ipaddress.ip_address(clusters[x][y])
-                        print("   " + str(clusters[x][y]))
+                for v in range(len(clusters)):
+                    print("IP_dst CLUSTER ",x,"--> IP_src =",premitives_rules[x,IP_src],"PORT_dst =",  premitives_rules[x,PORT_dst])
+                    for w in range(len(clusters[v])):
+                        clusters[v][w] = ipaddress.ip_address(clusters[v][w])
+                        print("   " + str(clusters[v][w]))
 
     # STEP 3: Regroupement    PORT   qui ont même @IP SRC et @IP DST
     print(">>>> STEP 3: Group PORT with fixed @IP SRC and fixed @IP DST <<<<")
@@ -77,30 +77,30 @@ def filtering_rule_generation(premitives_rules):
             id_rules_to_be_clustered_group1 = []
             id_rules_to_be_clustered_group2 = []
             for id in id_rules_to_be_clustered :
-                p = int(premitives_rules[x,PORT_dst])
+                p = int(premitives_rules[id,PORT_dst])
                 if p>1024 and p<=49151 :
                     id_rules_to_be_clustered_group1.append(id)
                 if p>49151:
                     id_rules_to_be_clustered_group2.append(id)
             # Group PORT_dst
             if len(id_rules_to_be_clustered_group1)>1: # If clustering is necessary in group 1
-                clusters = CAGA(premitives_rules[id_rules_to_be_clustered_group1, PORT_dst], 1) # Use CAGA with threshold=1
+                clusters = CAGA(listString2int(premitives_rules[id_rules_to_be_clustered_group1, PORT_dst]), 1) # Use CAGA with threshold=1
                 for id in id_rules_to_be_clustered_group1:
                     cluster = get_cluster_of_membership(clusters, premitives_rules[id,PORT_dst])# Find cluster
                     if len(cluster)>1: # If cluster is composed of more than 1 element
                         premitives_rules[id,PORT_dst] = cluster # Group adjacent ports
                 # Display clusters
-                for x in range(len(clusters)):
-                    print("PORT_dst CLUSTER ",x,"--> IP_src =",premitives_rules[id,IP_src],"IP_dst =",  premitives_rules[id,IP_dst])
-                    for y in range(len(clusters[x])):
-                        print("   " + str(clusters[x][y]))
+                for v in range(len(clusters)):
+                    print("PORT_dst CLUSTER ",v,"--> IP_src =",premitives_rules[x,IP_src],"IP_dst =",  premitives_rules[x,IP_dst])
+                    for w in range(len(clusters[v])):
+                        print("   " + str(clusters[v][w]))
             if len(id_rules_to_be_clustered_group2)>=2: # If clustering is necessary in group 2 and size >2
                 cluster = list(premitives_rules[id_rules_to_be_clustered_group2,PORT_dst])
                 # Update ports with correct cluster
                 for id in id_rules_to_be_clustered_group2:
                     premitives_rules[id,PORT_dst] = cluster # Replace PORT_dst by the correct cluster
                 # Display custers
-                print("PORT_dst CLUSTER >49151 --> IP_src =",premitives_rules[id,IP_src],"IP_dst =",  premitives_rules[id,IP_dst])
+                print("PORT_dst CLUSTER >49151 --> IP_src =",premitives_rules[x,IP_src],"IP_dst =",  premitives_rules[x,IP_dst])
                 for port in cluster:
                     print("   " + port)
                 
@@ -122,8 +122,10 @@ def filtering_rule_generation(premitives_rules):
             if int(cluster_PORT_dst[0])>1024 and int(cluster_PORT_dst[-1])<=49151 :
                 if cluster_PORT_dst[0]==cluster_PORT_dst[-1]:
                     rules[i, PORT_dst] = cluster_PORT_dst[0]
+                    print("UNIQUE", cluster_PORT_dst[0], cluster_PORT_dst[-1], rules[i, PORT_dst])
                 else:
                     rules[i, PORT_dst] = str(cluster_PORT_dst[0]) + ":" + str(cluster_PORT_dst[-1])
+                    print("RANGE", cluster_PORT_dst[0], cluster_PORT_dst[-1], rules[i, PORT_dst])
             if int(cluster_PORT_dst[0])>49151 :
                 rules[i, PORT_dst] = ">49151"
     return rules
