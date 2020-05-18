@@ -14,20 +14,20 @@ MIN_LENGTH_CLUSTER = 10
 
 def read_in_csv_file(path):
     # Read in csv file and return data as matrix
-    matrix = np.array([['IP SRC', 'IP DST', 'PORT SRC', 'PORT DST', 'PROTOCOL', 'ACTION']])
+    matrix = np.array([['IP SRC', 'IP DST', 'PORT DST', 'PROTOCOL', 'COUNT']])
     try:
         with open(path, 'r') as file:
             reader = csv.reader(file)
             for row in reader:
-                if (row[-1]=='permitted'):
-                    row[0] = ipaddress.ip_address(row[0])
-                    row[1] = ipaddress.ip_address(row[1])
-                    matrix = np.concatenate((matrix,[row]),axis=0) # Adds arr2 as rows to the end of matrix
+                row[0] = ipaddress.ip_address(row[0])
+                row[1] = ipaddress.ip_address(row[1])
+                row[-1] = int(row[-1]) # Store COUNT as int
+                matrix = np.concatenate((matrix,[row]),axis=0) # Adds arr2 as rows to the end of matrix
 
         # Add count column (1 for each row)
-        count = np.ones((len(matrix),1), dtype=np.int)
-        matrix = np.concatenate((matrix,count),axis=1) # Adds arr2 as columns to the end of matrix
-        matrix[0,6] = 'COUNT'   
+        # count = np.ones((len(matrix),1), dtype=np.int)
+        # matrix = np.concatenate((matrix,count),axis=1) # Adds arr2 as columns to the end of matrix
+        # matrix[0,6] = 'COUNT'   
     except IOError:
         sys.exit("/!\ Cannot open " + str(path))
     else :
@@ -40,7 +40,7 @@ def get_cluster_of_membership(clusters, member):
         for element in cluster:
             if member==element:
                 return cluster                
-    return "cluster not found"
+    return member
 
 def network(ip1, ip2):
     tab1 = [None]*32
@@ -77,16 +77,19 @@ def list2string(data):
             cell = cell + "," + str(list_element)
     return cell
 
+def listString2int(l):
+    for i in range(0, len(l)): 
+        l[i] = int(l[i]) 
+    return l
+
 def write_in_csv_file(data, path):
     workbook = xlsxwriter.Workbook(path)
     worksheet = workbook.add_worksheet()
     # Widen the first column to make the text clearer.
-    worksheet.set_column('A:A', 20)
-    worksheet.set_column('B:B', 20)
-    worksheet.set_column('C:C', 20)
+    worksheet.set_column('A:A', 40)
+    worksheet.set_column('B:B', 40)
+    worksheet.set_column('C:C', 40)
     worksheet.set_column('D:D', 20)
-    worksheet.set_column('E:E', 20)
-    worksheet.set_column('F:F', 20)
 
     cell_format = workbook.add_format()
     cell_format.set_text_wrap()
@@ -96,8 +99,7 @@ def write_in_csv_file(data, path):
     worksheet.write('A1', 'IP SRC', bold)
     worksheet.write('B1', 'IP DST', bold)
     worksheet.write('C1', 'PORT DST', bold)
-    worksheet.write('D1', 'ACTION', bold)
-    worksheet.write('E1', 'COUNT', bold)
+    worksheet.write('D1', 'COUNT', bold)
     
     for x in range(0, np.size(data,0)):
         for y in range(0,np.size(data,1)):
