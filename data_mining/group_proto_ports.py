@@ -1,6 +1,6 @@
 #!/usr/bin/python
-# INPUT : rules with clusters
-# OUTPUT : rules without redundancy
+# INPUT : rules with clusters and unique PROTO/Port
+# OUTPUT : rules group with multiple PROTO/Port if available
 
 from tools import IP_src, IP_dst, PORT_dst, PROTO, list2string
 

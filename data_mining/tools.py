@@ -82,6 +82,13 @@ def listString2int(l):
         l[i] = int(l[i]) 
     return l
 
+def join_list_element(l, e):
+    if (type(e)==list):
+        l = l + e
+    else:
+        l = l + [e]
+    return l
+
 def write_in_csv_file(data, path):
     workbook = xlsxwriter.Workbook(path)
     worksheet = workbook.add_worksheet()
