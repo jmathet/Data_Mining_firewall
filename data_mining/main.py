@@ -39,7 +39,7 @@ if __name__ == "__main__":
     write_in_csv_file(rules_ordered, "./results_file.xlsx")
     print("Number initial of logs = " + str(len(premitive_rules)-1) + " >> Number final of rules = " + str(len(rules)-1))
 
-    # Close the log file
+    # STEP 6 : Close the log file
     sys.stdout = old_stdout
     log_file.close()
 

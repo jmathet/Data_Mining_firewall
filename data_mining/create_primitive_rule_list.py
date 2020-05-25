@@ -21,15 +21,3 @@ def delete_redondancies(matrix):
     for id in id_rules_to_delete: # Delete from the end to the begining
         matrix = np.delete(matrix, id, axis=0) # Row to delete
     return matrix
-
-if __name__ == "__main__":
-    matrix = read_in_csv_file("../../Logs/avec_ip/logs_test_simple.csv")
-
-    print(matrix)
-    print("Number initial of rules = ",len(matrix))
-
-    matrix = delete_redondancies(matrix)
-    
-    print("===============")
-    print(matrix)
-    print("Number final of rules = ",len(matrix))

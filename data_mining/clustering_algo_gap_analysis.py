@@ -40,33 +40,4 @@ def CAGA(list, threshold):
 
     return clusters
 
-
-if __name__ == "__main__":
-    print("----------------- PORT CLUSTERING --------------------------")
-    my_list_port = [1,3,4,9,6,4,89,43]
-    res = CAGA(my_list_port,-1)
-    for x in range(len(res)):
-        print("CLUSTER " + str(x))
-        for y in range(len(res[x])):
-            print("   " + str(res[x][y]))
-
-
-    print("----------------- IP CLUSTERING --------------------------")
-    addr1 = ipaddress.ip_address('192.0.2.1')
-    addr2 = ipaddress.ip_address('192.0.2.5')
-    addr3 = ipaddress.ip_address('192.0.4.1')
-    addr4 = ipaddress.ip_address('192.0.5.1')
-    
-    my_list_ip = [int(addr1), int(addr2), int(addr3), int(addr4)]
-    
-    res = CAGA(my_list_ip,-1)
-
-    print("brut : " + str(res))
-
-    for x in range(len(res)):
-        print("CLUSTER " + str(x))
-        for y in range(len(res[x])):
-            res[x][y] = ipaddress.ip_address(res[x][y])
-            print("   " + str(res[x][y]))
-
     
