@@ -32,8 +32,10 @@ def group_proto_ports(rules):
             for id in id_rules_to_be_clustered:
                 ports_list_in_string = str()
                 if len(tcp_ports)!=0:
+                    tcp_ports.sort()
                     ports_list_in_string = ports_list_in_string + "tcp/" + list2string(tcp_ports)
                 if len(udp_ports)!=0:
+                    udp_ports.sort()
                     if len(ports_list_in_string)!=0: # Check if a new line is required
                         ports_list_in_string = ports_list_in_string + "\n"
                     ports_list_in_string = ports_list_in_string + "udp/" + list2string(udp_ports)

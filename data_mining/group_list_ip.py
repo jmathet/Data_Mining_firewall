@@ -32,7 +32,8 @@ def group_list_ip(rules):
         for y in range(x+1, len(rules)):
             if      (rules[y,IP_src]==rules[x,IP_src]) \
                 and (rules[y,PORT_dst]==rules[x,PORT_dst])\
-                and (group_ip_dst_done[y]!='YES'):
+                and (group_ip_dst_done[y]!='YES')\
+                and (group_ip_src_done[y]!='YES'):
                 id_rules_to_be_clustered.append(y)
                 group_ip_dst_done[y] = 'YES' # Avoid already used rules
                 list_ip_dst = join_list_element(list_ip_dst, rules[y, IP_dst]) # Add IP of y to the group of IP
