@@ -69,12 +69,19 @@ def IP2Network(IP, net_bits, net_number):
     return IP
 
 def list2string(data):
+    # data can be a list or a list of lists
     cell = str()
     for list_element in data:
         if len(cell)==0:
-            cell = str(list_element)
+            if type(list_element)==list:
+                cell = list2string(list_element)
+            else:
+                cell = str(list_element)
         else:
-            cell = cell + "," + str(list_element)
+            if type(list_element)==list:
+                cell = cell + "," + list2string(list_element)
+            else:
+                cell = cell + "," + str(list_element)
     return cell
 
 def listString2int(l):
@@ -109,8 +116,8 @@ def write_in_csv_file(data, path):
     worksheet.write('D1', 'COUNT', bold)
     
     for x in range(0, np.size(data,0)):
-        for y in range(0,np.size(data,1)):
-            if type(data[x,y])==list:
+        for y in range(0,np.size(data,1)): 
+            if type(data[x,y])==list or type(data[x,y])==np.ndarray:
                 cell = list2string(data[x,y])
             else:
                 cell = str(data[x,y])       
@@ -127,5 +134,5 @@ def write_in_csv_file(data, path):
             else:
                 sys.exit("/!\ Error during saving data")
         else :
-            print ("Write results in file " + str(path))
+            print (str(path), end  = '')
         break
