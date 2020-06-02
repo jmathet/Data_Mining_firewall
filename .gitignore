@@ -2,3 +2,5 @@
 *.pyc
 
 data_mining/resultat_file.xlsx
+
+*.log
