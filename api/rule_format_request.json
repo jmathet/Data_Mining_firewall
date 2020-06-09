@@ -1,0 +1,96 @@
+[
+    {
+      "action": "ALLOW",
+      "enabled": true,
+      "type": "AccessRule",
+      "name": "Rule1",
+      "sendEventsToFMC": false,
+      "logFiles": false,
+      "logBegin": false,
+      "logEnd": false,
+      "variableSet": 
+      {
+        "name": "Default Set",
+        "id": "VariableSetUUID",
+        "type": "VariableSet"
+      },
+      "sourceNetworks": 
+      {
+        "literals": 
+        [
+          {
+            "type": "Host",
+            "value": "168.124.70.7"
+          }
+        ]
+      },
+      "destinationNetworks": 
+      {
+        "literals": 
+        [
+          {
+            "type": "Host",
+            "value": "10.0.0.1"
+          }
+        ]
+      },
+      "destinationPorts": 
+      {
+        "literals": 
+        [
+          {
+            "type": "PortLiteral",
+            "port": "3000-3100",
+            "protocol": "6"
+          }
+        ]
+      }
+    },
+    {
+      "action": "ALLOW",
+      "enabled": true,
+      "type": "AccessRule",
+      "name": "Rule2",
+      "sendEventsToFMC": false,
+      "logFiles": false,
+      "logBegin": false,
+      "logEnd": false,
+      "variableSet": 
+      {
+        "name": "Default Set",
+        "id": "VariableSetUUID",
+        "type": "VariableSet"
+      },
+      "sourceNetworks": 
+      {
+        "literals": 
+        [
+          {
+            "type": "Host",
+            "value": "10.0.0.2"
+          }
+        ]
+      },
+      "destinationNetworks": 
+      {
+        "literals": 
+        [
+          {
+            "type": "Host",
+            "value": "10.0.0.5"
+          }
+        ]
+      },
+      "destinationPorts": 
+      {
+        "literals": 
+        [
+          {
+            "type": "PortLiteral",
+            "port": "3000-3100",
+            "protocol": "6"
+          }
+        ]
+      }
+    }
+  ]  
