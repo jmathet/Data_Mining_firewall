@@ -52,8 +52,15 @@ Contient les codes permettant de convertir des logs en règles par le processus 
 - ```main.py``` : point d'entrée de tout l'algorithme de data mining
 - ```tools.py``` : diverses fonctions basiques + variables globales
 
+Utilisation : ```python main.py```
+
 ### Dossier ```api```
 Contient les codes permettant de communiquer avec l'API FirePower de Cisco. 
+- ```base_request.json``` : JSON template pour données à envoyer à l'API (ajout d'ACL)
+- ```complete_json.py``` : contient la fonction qui permet de transférer les ACL d'un fichier xlsx au format JSON imposé par l'API
+- ```fmc_post_policy.py``` : point d'entrée (scirpt) pour poster une nouvelle polocy et des ACL associées
+
+Utilisation : ```python fmc_post_policy.py <FMC_USERNAME> <FMC_PASSWORD>```
 
 # Prérequis (Windows)
 ### Généraux
