@@ -55,12 +55,20 @@ Contient les codes permettant de convertir des logs en règles par le processus 
 ### Dossier ```api```
 Contient les codes permettant de communiquer avec l'API FirePower de Cisco. 
 
-# Prérequis
-(Windows)
+# Prérequis (Windows)
+### Généraux
+- Python 3 (3.8 utilisé pour les développements)
+- Pip
+
+### API interractions
+- Requests (used for API requests)
+- Xlrd (used for read XLSX files)
+- Numpy
+
+### Data Mining
+
 ### Machine Learning 
 - *python-weka-wrapper3 prérequis* (from [here](http://fracpete.github.io/python-weka-wrapper3/install.html)) :
-    - Python 3 (3.8 utilisé pour les développements)
-    - Pip
     - Numpy
     - Javabridge
     - Graphviz

@@ -37,11 +37,11 @@ def group_proto_ports(rules):
                 if len(udp_ports)!=0:
                     udp_ports.sort()
                     if len(ports_list_in_string)!=0: # Check if a new line is required
-                        ports_list_in_string = ports_list_in_string + "\n"
+                        ports_list_in_string = ports_list_in_string + ";"
                     ports_list_in_string = ports_list_in_string + "udp/" + list2string(udp_ports)
                 if len(icmp_ports)>1:
                     if len(ports_list_in_string)!=0: # Check if a new line is required
-                        ports_list_in_string = ports_list_in_string + "\n"
+                        ports_list_in_string = ports_list_in_string + ";"
                     ports_list_in_string = ports_list_in_string + "icmp/any" 
                 if len(ports_list_in_string)!=0:
                     rules[id,PORT_dst] = ports_list_in_string # Replace PORT_dst by list

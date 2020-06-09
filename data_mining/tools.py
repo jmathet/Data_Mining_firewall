@@ -22,7 +22,7 @@ def read_in_csv_file(path):
                 row[0] = ipaddress.ip_address(row[0])
                 row[1] = ipaddress.ip_address(row[1])
                 row[-1] = int(row[-1]) # Store COUNT as int
-                matrix = np.concatenate((matrix,[row]),axis=0) # Adds arr2 as rows to the end of matrix
+                matrix = np.concatenate((matrix,[row]),axis=0) # Adds row as rows to the end of matrix
 
         # Add count column (1 for each row)
         # count = np.ones((len(matrix),1), dtype=np.int)

@@ -1,0 +1,31 @@
+{
+    "action": "ALLOW",
+    "enabled": true,
+    "type": "AccessRule",
+    "name": "Rule??",
+    "sendEventsToFMC": false,
+    "logFiles": false,
+    "logBegin": false,
+    "logEnd": false,
+    "variableSet": 
+    {
+    "name": "Default Set",
+    "id": "VariableSetUUID",
+    "type": "VariableSet"
+    },
+    "sourceNetworks": 
+    {
+        "literals": 
+        []
+    },
+    "destinationNetworks": 
+    {
+        "literals": 
+        []
+    },
+    "destinationPorts": 
+    {
+        "literals": 
+        []
+    }
+}
