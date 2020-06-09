@@ -124,7 +124,7 @@ def filtering_rule_generation(premitives_rules):
                     rules[i, PORT_dst] = cluster_PORT_dst[0]
                     print("UNIQUE", cluster_PORT_dst[0], cluster_PORT_dst[-1], rules[i, PORT_dst])
                 else:
-                    rules[i, PORT_dst] = str(cluster_PORT_dst[0]) + ":" + str(cluster_PORT_dst[-1])
+                    rules[i, PORT_dst] = str(cluster_PORT_dst[0]) + "-" + str(cluster_PORT_dst[-1])
                     print("RANGE", cluster_PORT_dst[0], cluster_PORT_dst[-1], rules[i, PORT_dst])
             elif int(cluster_PORT_dst[0])>49151 :
                 rules[i, PORT_dst] = ">49151"
