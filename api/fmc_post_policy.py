@@ -6,10 +6,12 @@ import json
 import sys
 import requests
 from complete_json import complete_json
+import random
 
 server = "https://fmcrestapisandbox.cisco.com"
 
-username = "admin"
+if len(sys.argv) <= 1:
+    print("USAGE : python fmc_post_policy.py <FMC_USERNAME> <FMC_PASSWORD>")
 if len(sys.argv) > 1:
     username = sys.argv[1]
 password = "sf"
@@ -45,9 +47,15 @@ url = server + api_path
 if (url[-1] == '/'):
     url = url[:-1]
 
-# POST OPERATION
+# POST OPERATION with random policy name
 
-post_data = complete_json("data_api_test.xlsx")
+post_data = {
+  "type": "AccessPolicy",
+  "name": "TEST"+ str(random.randint(1,1001)),
+  "defaultAction": {
+    "action": "BLOCK"
+  }
+}
 
 try:
     # REST call with SSL verification turned off:
@@ -79,13 +87,12 @@ if (url[-1] == '/'):
     url = url[:-1]
  
 # POST OPERATION
-with open('base_request.json') as f:
-  rule_model = json.load(f)
-
-# Output: {'name': 'Bob', 'languages': ['English', 'Fench']}
-print(rule_model)
-
-post_data = [rule_model]
+post_data = complete_json("data_api_test.xlsx")
+with open('post_data.json', 'w') as outfile:
+    json.dump(post_data, outfile, indent = 2)
+# with open('exemple_bulk.json') as f:
+#     post_data = json.load(f)
+print(json.dumps(post_data, indent = 4, sort_keys=True))
 
 try:
     # REST call with SSL verification turned off:

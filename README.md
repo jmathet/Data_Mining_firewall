@@ -62,6 +62,17 @@ Contient les codes permettant de communiquer avec l'API FirePower de Cisco.
 
 Utilisation : ```python fmc_post_policy.py <FMC_USERNAME> <FMC_PASSWORD>```
 
+**/!\ WARNING** : Le nom de la *policy* doit être unique. Modifier le JSON dans script (ligne 50)
+Exemple :
+```
+post_data = {
+  "type": "AccessPolicy",
+  "name": "TEST", # UNIQUE NAME 
+  "defaultAction": {
+    "action": "BLOCK"
+  }
+}
+```
 # Prérequis (Windows)
 ### Généraux
 - Python 3 (3.8 utilisé pour les développements)

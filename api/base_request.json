@@ -7,25 +7,27 @@
     "logFiles": false,
     "logBegin": false,
     "logEnd": false,
-    "variableSet": 
-    {
-    "name": "Default Set",
-    "id": "VariableSetUUID",
-    "type": "VariableSet"
+    "variableSet": {
+      "name": "Default Set",
+      "id": "VariableSetUUID",
+      "type": "VariableSet"
     },
     "sourceNetworks": 
     {
         "literals": 
-        []
+        [
+        ]
     },
     "destinationNetworks": 
     {
         "literals": 
-        []
+        [
+        ]
     },
     "destinationPorts": 
     {
         "literals": 
-        []
+        [
+        ]
     }
-}
+  }
