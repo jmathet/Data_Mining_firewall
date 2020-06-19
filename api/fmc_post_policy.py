@@ -11,12 +11,11 @@ import random
 server = "https://fmcrestapisandbox.cisco.com"
 
 if len(sys.argv) <= 1:
-    print("USAGE : python fmc_post_policy.py <FMC_USERNAME> <FMC_PASSWORD>")
+    print("USAGE : python fmc_post_policy.py <rule_file.xlsx> <FMC_USERNAME> <FMC_PASSWORD>")
 if len(sys.argv) > 1:
-    username = sys.argv[1]
-password = "sf"
-if len(sys.argv) > 2:
-    password = sys.argv[2]
+    rule_file = sys.argv[1]
+    username  = sys.argv[2]
+    password  = sys.argv[3]
 
 r = None
 headers = {'Content-Type': 'application/json'}
@@ -87,12 +86,12 @@ if (url[-1] == '/'):
     url = url[:-1]
  
 # POST OPERATION
-post_data = complete_json("data_api_test.xlsx")
+post_data = complete_json(rule_file)
 with open('post_data.json', 'w') as outfile:
     json.dump(post_data, outfile, indent = 2)
 # with open('exemple_bulk.json') as f:
 #     post_data = json.load(f)
-print(json.dumps(post_data, indent = 4, sort_keys=True))
+# print(json.dumps(post_data, indent = 4, sort_keys=True))
 
 try:
     # REST call with SSL verification turned off:

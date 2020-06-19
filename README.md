@@ -60,7 +60,7 @@ Contient les codes permettant de communiquer avec l'API FirePower de Cisco.
 - ```complete_json.py``` : contient la fonction qui permet de transférer les ACL d'un fichier xlsx au format JSON imposé par l'API
 - ```fmc_post_policy.py``` : point d'entrée (scirpt) pour poster une nouvelle polocy et des ACL associées
 
-Utilisation : ```python fmc_post_policy.py <FMC_USERNAME> <FMC_PASSWORD>```
+Utilisation : ```python fmc_post_policy.py <rule_file.xlsx> <FMC_USERNAME> <FMC_PASSWORD>```
 
 **/!\ WARNING** : Le nom de la *policy* doit être unique. Modifier le JSON dans script (ligne 50)
 Exemple :

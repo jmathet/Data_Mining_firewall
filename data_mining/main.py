@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     # STEP 0: Read csv file
     print("        ... Reading csv file", file=old_stdout, end = '', flush=True)
-    data = read_in_csv_file("./../../data/logs_ana/results.csv")
+    data = read_in_csv_file("./../../data/logs_ana/results.csv") # The first line need to be a data line (no title)
     print(" - OK", file=old_stdout)
 
     # STEP 1: Generate primitive rules
