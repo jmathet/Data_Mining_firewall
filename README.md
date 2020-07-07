@@ -59,7 +59,7 @@ Si écart[e] < seuil :
     Ajout de l'élément e dans cluster actuel
 Sinon :
     Création d'un nouveau cluster
-    Ajout de l'élément e dans le nouveau cluster
+    Ajout de l'élément dans le nouveau cluster
 ```
 
 <ins> Ordonnancement des règles
@@ -85,7 +85,7 @@ Contient les codes permettant de convertir des logs en règles par le processus 
 - ```main.py``` : point d'entrée de tout l'algorithme de data mining
 - ```tools.py``` : diverses fonctions basiques + **variables globales**
 
-Utilisation : ```python main.py <path_file_src.csv>"```
+Utilisation : ```python main.py <path_file_src.csv>```
 
 **/!\ WARNING** : Utilisation d'un chemain relatif vers le fichier source (structure obligatoire voir logs_test_simple.csv)
 
