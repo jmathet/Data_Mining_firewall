@@ -62,16 +62,22 @@ Sinon :
     Ajout de l'élément e dans le nouveau cluster
 ```
 
+<ins> Ordonnancement des règles
+
+1. Regroupement des règles qui partagent les mêmes IP sources et destination : création de listes de ports (en tenant compte du protocole)
+2. Regroupement des listes d'IP (src ou dst) afin d'éviter les répétitions (lorsque le champ port est le même)
+3. Ordonnancement basé sur la fréquence d'occurence (COUNT)
+
 ## Process envoi API
 1. Création d'une *policy* (nom passé en argument)
-2. Envoi de toutes les règles (lecture fichier xlsx passé en argument)
+2. Envoi de toutes les règles (lecture fichier `xlsx` passé en argument)
 
 # Organisation du repository
 ## Dossier ```machine_learning```
 ## Dossier ```data_mining```
 Contient les codes permettant de convertir des logs en règles par le processus présenté plus haut. 
 - ```clustering_algo_gap_analysis.py``` : contient l'algorithme de génération des clusters qui est basé sur un seuil et qui sert pour les listes d'@IP et les listes de ports
-- ```create_primitive_rule_list.py``` : contient l'algorithme de détecter des redondances pour éviter d'avoir 2 lignes identiques (ne tient pas compte du champ COUNT)
+- ```create_primitive_rule_list.py``` : contient l'algorithme pour détecter les redondances et éviter d'avoir 2 lignes identiques (ne tient pas compte du champ compteur / COUNT)
 - ```filtering_rule_generation.py``` : contient toute l'architecture et l'intelligence du bloc FRG
 - ```group_list_ip.py``` : contient l'algorithme qui permet de regourper les listes d'IP (src ou dst) lorsque la cluterisation n'a pas été possible afin d'éviter les répétitions 
 - ```group_proto_ports.py``` : contient l'algorithme qui permet de regrouper les protocoles / ports dans le même champs et de concaténer tous les logs qui ont les mêmes @IP src et @IP dst
