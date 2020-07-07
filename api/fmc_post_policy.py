@@ -11,11 +11,12 @@ import random
 server = "https://fmcrestapisandbox.cisco.com"
 
 if len(sys.argv) <= 1:
-    print("USAGE : python fmc_post_policy.py <rule_file.xlsx> <FMC_USERNAME> <FMC_PASSWORD>")
+    print("USAGE : python fmc_post_policy.py <rule_file.xlsx> <policy_name> <FMC_USERNAME> <FMC_PASSWORD>")
 if len(sys.argv) > 1:
     rule_file = sys.argv[1]
-    username  = sys.argv[2]
-    password  = sys.argv[3]
+    policy_name = sys.argv[2]
+    username  = sys.argv[3]
+    password  = sys.argv[4]
 
 r = None
 headers = {'Content-Type': 'application/json'}
@@ -50,7 +51,7 @@ if (url[-1] == '/'):
 
 post_data = {
   "type": "AccessPolicy",
-  "name": "TEST"+ str(random.randint(1,1001)),
+  "name": policy_name,
   "defaultAction": {
     "action": "BLOCK"
   }
