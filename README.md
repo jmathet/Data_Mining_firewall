@@ -21,15 +21,15 @@ Etapes clés pour l'algorithme FRG :
 ```
 MIN_LENGTH_CLUSTER = 10 # Minimum 10 IP dans un cluster (éviter masque trop précis)
 Pour chaque cluster d'IP SRC et d'IP DST:
-    Si longeur cluster > MIN_LENGTH_CLUSTER :
+    Si longeur cluster>MIN_LENGTH_CLUSTER :
         new_cluster_IP = adresse IP sous-réseau à partir du 1er et du dernier élément du cluster
 Pour chaque cluster de PORTS DST :
-    Si int(cluster_PORT_dst[0])>1024 and int(cluster_PORT_dst[-1])<=49151 :
+    Si cluster_PORT_dst[0]>1024 et cluster_PORT_dst[last]<=49151 :
         Si cluster_PORT_dst[0] == cluster_PORT_dst[last]:
             new_cluster_PORT = cluster_PORT_dst[0]
         Sinon :
             new_cluster_PORT = cluster_PORT_dst[0] + "-" + cluster_PORT_dst[last]
-    elif int(cluster_PORT_dst[0])>49151 :
+    Si cluster_PORT_dst[0]>49151 :
         new_cluster_PORT = "49152-65535"
 ```
 
