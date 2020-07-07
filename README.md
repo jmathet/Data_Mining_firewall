@@ -7,11 +7,11 @@ Projet en 2 étapes :
 1. *Machine Learning* à partir de logs de firewalls afin de déterminer un modèle pour traiter automatiquement de nouveaux logs
 2. *Data Mining* à partir des logs pour déterminer des règles de firawall les plus efficaces possibles. Développements inspirés de la méthode proposée dans l'article [*Analysis of Firewall Policy Rules Using data Mining Techniques*](https://ieeexplore.ieee.org/document/1687561)
 
-### Process Data Mining : 
+## Process Data Mining : 
 
 ![alt text](step_by_steps_2.png)
 
-Etapes clés pour l'algorithme FRG :
+<ins> Etapes clés pour l'algorithme FRG :
 1. Génération clusters 
     - Regroupement @IP SRC qui ont les mêmes @IP DST et PORT
     - Regroupement @IP DST qui ont les mêmes @IP SRC et PORT
@@ -19,7 +19,9 @@ Etapes clés pour l'algorithme FRG :
 4. Suppresion des redondances
 6. Généralisation des clusters
 
-Pseudo code pour la généralisation des clusters (code dans ```filtering_rule_generation.py```)
+<ins> Pseudo code pour la généralisation des clusters 
+
+(code dans ```filtering_rule_generation.py```)
 ```
 MIN_LENGTH_CLUSTER = 10 # Minimum 10 IP dans un cluster (éviter masque trop précis)
 Pour chaque cluster d'IP SRC et d'IP DST:
@@ -36,14 +38,18 @@ Pour chaque cluster de PORTS DST :
     # Sinon (ports < 1024) : Ne rien faire
 ```
 
-Etapes pour la génération des clusters par évaluation des distances CAGA (code dans ```clustering_algo_gap_analysis.py```)
+<ins> Etapes pour la génération des clusters par évaluation des distances CAGA
 
-Entrée : Liste d'éléments
-Sortie : Liste de clusters
+ (code dans ```clustering_algo_gap_analysis.py```)
+
+*Entrée* : Liste d'éléments
+
+*Sortie* : Liste de clusters
 
 1. Trier la liste dans l'ordre croissant
-2. Calculer l'écart (distance 2 à 2 par soustraction) 
-   threshold = 128
+2. Calculer l'écart (distance 2 à 2 par soustraction)
+    
+   **Seuil** fixé arbitrairement à **128** pour les adresses IP et à **1** pour les ports
 3. Création des clusters basés sur l'écart, pour chaque élement e de la liste initiale :
 ```
 Si écart[e] == 0 :
@@ -55,13 +61,13 @@ Sinon :
     Ajout de l'élément e dans le nouveau cluster
 ```
 
-### Process envoi API
+## Process envoi API
 1. Création d'une *policy* (nom passé en argument)
 2. Envoi de toutes les règles (lecture fichier xlsx passé en argument)
 
 # Organisation du repository
-### Dossier ```machine_learning```
-### Dossier ```data_mining```
+## Dossier ```machine_learning```
+## Dossier ```data_mining```
 Contient les codes permettant de convertir des logs en règles par le processus présenté plus haut. 
 - ```clustering_algo_gap_analysis.py``` : contient l'algorithme de génération des clusters qui est basé sur un seuil et qui sert pour les listes d'@IP et les listes de ports
 - ```create_primitive_rule_list.py``` : contient l'algorithme de détecter des redondances pour éviter d'avoir 2 lignes identiques (ne tient pas compte du champ COUNT)
@@ -76,7 +82,7 @@ Utilisation : ```python main.py <path_file_src.csv>"```
 
 **/!\ WARNING** : Utilisation d'un chemain relatif vers le fichier source (structure obligatoire voir logs_test_simple.csv)
 
-### Dossier ```api```
+## Dossier ```api```
 Contient les codes permettant de communiquer avec l'API FirePower de Cisco. 
 - ```base_request.json``` : JSON template pour données à envoyer à l'API (ajout d'ACL)
 - ```complete_json.py``` : contient la fonction qui permet de transférer les ACL d'un fichier xlsx au format JSON imposé par l'API
@@ -96,18 +102,18 @@ post_data = {
 }
 ```
 # Prérequis (Windows)
-### Généraux
+## Généraux
 - Python 3 (3.8 utilisé pour les développements)
 - Pip
 
-### API interractions
+## API interractions
 - Requests (used for API requests)
 - Xlrd (used for read XLSX files)
 - Numpy
 
-### Data Mining
+## Data Mining
 
-### Machine Learning 
+## Machine Learning 
 - *python-weka-wrapper3 prérequis* (from [here](http://fracpete.github.io/python-weka-wrapper3/install.html)) :
     - Numpy
     - Javabridge
@@ -117,5 +123,5 @@ post_data = {
 
 - python-weka-wrapper3 ([doc](http://fracpete.github.io/python-weka-wrapper3/install.html#windows))
 
-### Data Mining 
+## Data Mining 
 - Python 3
