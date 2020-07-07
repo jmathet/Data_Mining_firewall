@@ -55,7 +55,7 @@ Pour chaque cluster de PORTS DST :
 ```
 Si écart[e] == 0 :
     # Ne rien faire pour éviter les répétitions
-Si écart[e] <> seuil :
+Si écart[e] < seuil :
     Ajout de l'élément e dans cluster actuel
 Sinon :
     Création d'un nouveau cluster
