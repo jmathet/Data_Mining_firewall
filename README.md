@@ -4,8 +4,8 @@
 **Projet** : Optimisation algo machine learning / data mining pour configurer automatiquement des pare-feux
 
 Projet en 3 étapes : 
-1. *Machine Learning* à partir de logs de firewalls afin de déterminer un modèle pour traiter automatiquement de nouveaux logs
-2. *Data Mining* à partir des logs pour déterminer des règles de firawall les plus efficaces possibles. Développements inspirés de la méthode proposée dans l'article [*Analysis of Firewall Policy Rules Using data Mining Techniques*](https://ieeexplore.ieee.org/document/1687561)
+1. *Machine Learning* à partir de logs (journaux d'évènements) de pare-feu afin de déterminer un modèle pour traiter automatiquement de nouveaux flux (prise de décision automatique)
+2. *Data Mining* à partir des logs (journaux d'évènements) pour déterminer des règles de pare-feu les plus efficaces possibles. Développements inspirés de la méthode proposée dans l'article [*Analysis of Firewall Policy Rules Using data Mining Techniques*](https://ieeexplore.ieee.org/document/1687561)
 3. Envoi des règles à l'API Cisco
 
 ## Process Data Mining : 
@@ -13,7 +13,7 @@ Projet en 3 étapes :
 ![alt text](step_by_steps_2.png)
 
 <ins> Etapes clés pour l'algorithme FRG :
-1. Génération clusters 
+1. Génération des clusters 
     - Regroupement @IP SRC qui ont les mêmes @IP DST et PORT
     - Regroupement @IP DST qui ont les mêmes @IP SRC et PORT
     - Regroupement  PORT   qui ont les mêmes @IP SRC et @IP DST
@@ -36,7 +36,7 @@ Pour chaque cluster de PORTS DST :
             new_cluster_PORT = cluster_PORT_dst[0] + "-" + cluster_PORT_dst[last]
     Si cluster_PORT_dst[0]>49151 :
         new_cluster_PORT = "49152-65535"
-    # Sinon (ports < 1024) : Ne rien faire
+    # Sinon (ports < 1024) : Ne rien faire (pas de cluster car "Well Known Ports")
 ```
 
 <ins> Etapes pour la génération des clusters par évaluation des distances CAGA
