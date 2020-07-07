@@ -10,6 +10,14 @@ import numpy as np
 import sys
 
 if __name__ == "__main__":
+    
+    if len(sys.argv) == 1:
+        path_file_src = sys.argv[1]
+    else:
+        print("USAGE : python main.py <path_file_src>")
+        print("Relative path from main.py folder")
+        
+
     # Print in log file
     old_stdout = sys.stdout
     log_file = open("print.log","w")
@@ -18,7 +26,7 @@ if __name__ == "__main__":
 
     # STEP 0: Read csv file
     print("        ... Reading csv file", file=old_stdout, end = '', flush=True)
-    data = read_in_csv_file("./../../data/logs_ana/results.csv") # The first line need to be a data line (no title)
+    data = read_in_csv_file(path_file_src) # The first line need to be a data line (no title)
     print(" - OK", file=old_stdout)
 
     # STEP 1: Generate primitive rules
