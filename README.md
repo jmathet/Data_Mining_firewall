@@ -3,9 +3,10 @@
 # Description projet
 **Projet** : Optimisation algo machine learning / data mining pour configurer automatiquement des pare-feux
 
-Projet en 2 étapes : 
+Projet en 3 étapes : 
 1. *Machine Learning* à partir de logs de firewalls afin de déterminer un modèle pour traiter automatiquement de nouveaux logs
 2. *Data Mining* à partir des logs pour déterminer des règles de firawall les plus efficaces possibles. Développements inspirés de la méthode proposée dans l'article [*Analysis of Firewall Policy Rules Using data Mining Techniques*](https://ieeexplore.ieee.org/document/1687561)
+3. Envoi des règles à l'API Cisco
 
 ## Process Data Mining : 
 
