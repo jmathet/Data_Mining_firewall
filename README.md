@@ -1,43 +1,37 @@
-# TODO
 
-- [x] Créer fonction (tools) pour lire logs (important data) dans fichiers csv
-- [x] Choisir structure de données adaptées aux logs / règles de FW
-- [x] Ecrire algo génération "premitive rules" --> rèles identiques
-- [x] Ecrire Clustering Algo bu Gap Analaysis (CAGA)
-- [x] Ecrire algo "main" FRG
-    - [x] STEP 1: Regroupement @IP SRC qui ont même @IP DST et PORT
-	- [x] STEP 2: Regroupement @IP DST qui ont même @IP SRC et PORT
-	- [x] STEP 3: Regroupement  PORT   qui ont même @IP SRC et @IP DST
-    - [x] STEP 4: Suppresion des redondances (adapter algo génération "premitive rules")
-    - [x] STEP 5: Cluster généralisation
-- [x] Créer fonction écrriture dans fichier .xlxs
-- [x] Ecrire algo d'ordonnancement des règles (basé sur le nombre count)
-- [ ] Lire CSV file en argument du main.py
-- [x] Prendre en compte protocole dans concaténation des ports
-- [x] Amélioration précision généralisation IP pour coller à la réalité (Max /24 et Min /27)
-- [x] Amélioration concaténation des ports : pouvoir mettre un range et un port unique pour une règle
-
-Bonus :
-- [ ] Ecrire script installation prérequis auto
-- [ ] Créer fichier avec les variables
 
 # Description projet
 **Projet** : Optimisation algo machine learning / data mining pour configurer automatiquement des pare-feux
 
 Projet en 2 étapes : 
 1. *Machine Learning* à partir de logs de firewalls afin de déterminer un modèle pour traiter automatiquement de nouveaux logs
-2. *Data Mining* à partir des logs pour déterminer des règles de firawall les plus efficaces possibles. Développements basés de la méthode proposée dans l'article [*Analysis of Firewall Policy Rules Using data Mining Techniques*](https://ieeexplore.ieee.org/document/1687561)
+2. *Data Mining* à partir des logs pour déterminer des règles de firawall les plus efficaces possibles. Développements inspirés de la méthode proposée dans l'article [*Analysis of Firewall Policy Rules Using data Mining Techniques*](https://ieeexplore.ieee.org/document/1687561)
 
-Schéma process *Data Mining* : 
+Process *Data Mining* : 
 
 ![alt text](step_by_steps_2.png)
 
-Etapes clés pour l'algorithme FRG : 
-1. Regroupement @IP SRC qui ont même @IP DST et PORT
-2. Regroupement @IP DST qui ont même @IP SRC et PORT
-3. Regroupement  PORT   qui ont même @IP SRC et @IP DST
+Etapes clés pour l'algorithme FRG :
+1. Génération clusters 
+    - Regroupement @IP SRC qui ont les mêmes @IP DST et PORT
+    - Regroupement @IP DST qui ont les mêmes @IP SRC et PORT
+    - Regroupement  PORT   qui ont les mêmes @IP SRC et @IP DST
 4. Suppresion des redondances
 6. Généralisation des clusters
+```
+MIN_LENGTH_CLUSTER = 10 # Minimum 10 IP dans un cluster (éviter masque trop précis)
+Pour chaque cluster d'IP SRC et d'IP DST:
+    Si longeur cluster > MIN_LENGTH_CLUSTER :
+        new_cluster_IP = adresse IP sous-réseau à partir du 1er et du dernier élément du cluster
+Pour chaque cluster de PORTS DST :
+    Si int(cluster_PORT_dst[0])>1024 and int(cluster_PORT_dst[-1])<=49151 :
+        Si cluster_PORT_dst[0] == cluster_PORT_dst[last]:
+            new_cluster_PORT = cluster_PORT_dst[0]
+        Sinon :
+            new_cluster_PORT = cluster_PORT_dst[0] + "-" + cluster_PORT_dst[last]
+    elif int(cluster_PORT_dst[0])>49151 :
+        new_cluster_PORT = "49152-65535"
+```
 
 # Organisation du repository
 ### Dossier ```machine_learning```
