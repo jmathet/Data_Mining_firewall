@@ -85,7 +85,20 @@ Contient les codes permettant de convertir des logs en règles par le processus 
 - ```main.py``` : point d'entrée de tout l'algorithme de data mining
 - ```tools.py``` : diverses fonctions basiques + **variables globales**
 
-Utilisation : ```python main.py <path_file_src.csv>```
+<ins> Utilisation étape par étape
+1. Préparation des données sources : mise en forme des données pour qu'elles soient compréhensibles par l'algo
+    - Extract des données depuis un pare-feu (uniquement des logs où la décision est PERMIT) au format csv.
+    - Utilisation (si nécessaire) de scirpt de préparation des fichiers ```python prepare_file.py <path_file_src> <path_file_dst>```. La modification du script peut être nécessaire pour s'adapter aux données en entrées :
+        ```
+        # Variables to be defined 
+        ip_src_i = 2
+        ip_dst_i = 5
+        port_dst_i = 6
+        proto_i = 7
+        ```
+    
+2. Lancement de l'algo
+```python main.py <path_file_src.csv>```
 
 **/!\ WARNING** : Utilisation d'un chemain relatif vers le fichier source (structure obligatoire voir logs_test_simple.csv)
 
@@ -95,7 +108,9 @@ Contient les codes permettant de communiquer avec l'API FirePower de Cisco.
 - ```complete_json.py``` : contient la fonction qui permet de transférer les ACL d'un fichier xlsx au format JSON imposé par l'API
 - ```fmc_post_policy.py``` : point d'entrée (scirpt) pour poster une nouvelle polocy et des ACL associées
 
-Utilisation : ```python fmc_post_policy.py <rule_file.xlsx> <policy_name> <FMC_USERNAME> <FMC_PASSWORD>```
+<ins> Utilisation
+
+```python fmc_post_policy.py <rule_file.xlsx> <policy_name> <FMC_USERNAME> <FMC_PASSWORD>```
 
 **/!\ WARNING** : Le nom de la *policy* doit être unique.  Dans script (ligne 50)
 Exemple :
