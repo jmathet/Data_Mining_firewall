@@ -82,6 +82,7 @@ Contient les codes permettant de convertir des logs en règles par le processus 
 - ```group_list_ip.py``` : contient l'algorithme qui permet de regourper les listes d'IP (src ou dst) lorsque la cluterisation n'a pas été possible afin d'éviter les répétitions 
 - ```group_proto_ports.py``` : contient l'algorithme qui permet de regrouper les protocoles / ports dans le même champs et de concaténer tous les logs qui ont les mêmes @IP src et @IP dst
 - ```logs_test_simple.csv``` :  exemple de fichier de logs qui doit être donné en entrée au main.py
+- ```print.log``` :  log de toutes les actions effectuées par l'algo sauvegarder dans ce fichier (permet de rentrer dans les détails)
 - ```main.py``` : point d'entrée de tout l'algorithme de data mining
 - ```tools.py``` : diverses fonctions basiques + **variables globales**
 
