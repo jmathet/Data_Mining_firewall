@@ -10,8 +10,8 @@ import numpy as np
 import sys
 
 if __name__ == "__main__":
-    
-    if len(sys.argv) == 1:
+
+    if len(sys.argv) == 2:
         path_file_src = sys.argv[1]
     else:
         print("USAGE : python main.py <path_file_src>")
@@ -25,36 +25,39 @@ if __name__ == "__main__":
     print("Running ...", file=old_stdout)
 
     # STEP 0: Read csv file
-    print("        ... Reading csv file", file=old_stdout, end = '', flush=True)
+    print("        ... Reading csv file - ", file=old_stdout, end = '', flush=True)
     data = read_in_csv_file(path_file_src) # The first line need to be a data line (no title)
+    print(str(len(data)-1), file=old_stdout, end = '', flush=True)
     print(" - OK", file=old_stdout)
 
     # STEP 1: Generate primitive rules
-    print("        ... Generating primitive rules", file=old_stdout, end = '', flush=True)
+    print("        ... Generating primitive rules - ", file=old_stdout, end = '', flush=True)
     premitive_rules = delete_redondancies(data)
+    print(str(len(premitive_rules)-1), file=old_stdout, end = '', flush=True)
     print(" - OK", file=old_stdout)
     
 
     # STEP 2: Geralization of primitive rules to rules 
-    print("        ... Geralization of primitive rules to rules", file=old_stdout, end = '', flush=True)
+    print("        ... Geralization of primitive rules to rules - ", file=old_stdout, end = '', flush=True)
     generalized_rules  = filtering_rule_generation(premitive_rules)
     generalized_rules = delete_redondancies(generalized_rules)
+    print(str(len(generalized_rules)-1), file=old_stdout, end = '', flush=True)
     print(" - OK", file=old_stdout)
     
     # STEP 3: Group Proto/ports
-    print("        ... Group Proto/ports", file=old_stdout, end = '', flush=True)
+    print("        ... Group Proto/ports - ", file=old_stdout, end = '', flush=True)
     rules_port_group = group_proto_ports(generalized_rules)
     rules_port_group = np.delete(rules_port_group, PROTO, axis=1) # Delete column PROTOCOL
     rules_port_group = delete_redondancies(rules_port_group)
+    print(str(len(rules_port_group)-1), file=old_stdout, end = '', flush=True)
     print(" - OK", file=old_stdout)
-
 
     # STEP 4 : Group list IP
-    print("        ... Group list IP", file=old_stdout, end = '', flush=True)
+    print("        ... Group list IP - ", file=old_stdout, end = '', flush=True)
     rules_ip_group = group_list_ip(rules_port_group)
     rules_ip_group = delete_redondancies(rules_ip_group)
+    print(str(len(rules_ip_group)-1), file=old_stdout, end = '', flush=True)
     print(" - OK", file=old_stdout)
-
 
     # STEP 5 : Ordering rules using COUNT
     print("        ... Ordering rules using COUNT", file=old_stdout, end = '', flush=True)
@@ -73,4 +76,4 @@ if __name__ == "__main__":
     print(" - OK")
 
     print("Work done ! \n >> Log file print.log generated in the current folder\n >> Results file resultat_file.xlsx generated in the current folder")
-    print("Number initial of logs = " + str(len(premitive_rules)-1) + " >> Number final of rules = " + str(len(rules_ordered)-1))
+    print("Number initial of logs = " + str(len(data)-1) + " >> Number final of rules = " + str(len(rules_ordered)-1))

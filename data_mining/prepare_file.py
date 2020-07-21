@@ -38,6 +38,7 @@ def read_in_csv_file(path):
 
 
 def write_in_csv(path, matrix):
+    matrix = np.delete(matrix, 0, axis=0) # Row to delete (first one)
     with open(path, 'a', newline='') as file:
         writer = csv.writer(file)
         for row in matrix:
