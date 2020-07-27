@@ -1,6 +1,10 @@
+# Sommaie documentation projet
+1. [Description générale](#description-projet)
+2. [Organisation des dossier](#organisation-du-repository)
+3. [Prérequis pour installation / utilisation](#prérequis-windows)
+4. [Tutoriel](#tuto)
 
-
-# Description projet
+# Description générale
 **Projet** : Optimisation algo machine learning / data mining pour configurer automatiquement des pare-feux
 
 Projet en 3 étapes : 
@@ -74,6 +78,7 @@ Sinon :
 
 # Organisation du repository
 ## Dossier ```machine_learning```
+//
 ## Dossier ```data_mining```
 Contient les codes permettant de convertir des logs en règles par le processus présenté plus haut. 
 - ```clustering_algo_gap_analysis.py``` : contient l'algorithme de génération des clusters qui est basé sur un seuil et qui sert pour les listes d'@IP et les listes de ports
@@ -85,23 +90,7 @@ Contient les codes permettant de convertir des logs en règles par le processus 
 - ```print.log``` :  log de toutes les actions effectuées par l'algo sauvegarder dans ce fichier (permet de rentrer dans les détails)
 - ```main.py``` : point d'entrée de tout l'algorithme de data mining
 - ```tools.py``` : diverses fonctions basiques + **variables globales**
-
-<ins> Utilisation étape par étape
-1. Préparation des données sources : mise en forme des données pour qu'elles soient compréhensibles par l'algo
-    - Extract des données depuis un pare-feu (uniquement des logs où la décision est PERMIT) au format csv.
-    - Utilisation (si nécessaire) de scirpt de préparation des fichiers ```python prepare_file.py <path_file_src> <path_file_dst>```. La modification du script peut être nécessaire pour s'adapter aux données en entrées :
-        ```
-        # Variables to be defined 
-        ip_src_i = 2
-        ip_dst_i = 5
-        port_dst_i = 6
-        proto_i = 7
-        ```
-    
-2. Lancement de l'algo
-```python main.py <path_file_src.csv>```
-
-**/!\ WARNING** : Utilisation d'un chemain relatif vers le fichier source (structure obligatoire voir logs_test_simple.csv)
+- ```prepare_file.py``` : contient l'algo qui permet d'extraire les données brut vers un fichier csv facilement exploitable
 
 ## Dossier ```api```
 Contient les codes permettant de communiquer avec l'API FirePower de Cisco. 
@@ -124,6 +113,8 @@ post_data = {
   }
 }
 ```
+**/!\ WARNING** : l'URL de l'API doit être modifée ligne 10 du fichier fmc_post_policy.py
+
 # Prérequis (Windows)
 ## Généraux
 - Python 3 (3.8 utilisé pour les développements)
@@ -133,8 +124,6 @@ post_data = {
 - Requests (used for API requests)
 - Xlrd (used for read XLSX files)
 - Numpy
-
-## Data Mining
 
 ## Machine Learning 
 - *python-weka-wrapper3 prérequis* (from [here](http://fracpete.github.io/python-weka-wrapper3/install.html)) :
@@ -148,3 +137,26 @@ post_data = {
 
 ## Data Mining 
 - Python 3
+
+# Tuto
+
+1. Préparation des données sources : mise en forme des données pour qu'elles soient compréhensibles par l'algo
+    - Extract des données depuis un pare-feu (uniquement des logs où la décision est PERMIT) au format csv. Une première ligne est souvent à supprimer car pas des données bruts. 
+    - Utilisation (si nécessaire) de scirpt de préparation des fichiers ```python prepare_file.py <path_file_src> <path_file_dst>```. La modification du script peut être nécessaire pour s'adapter aux données en entrées :
+        ```
+        # Variables to be defined 
+        ip_src_i = 2
+        ip_dst_i = 5
+        port_dst_i = 6
+        proto_i = 7
+        ```
+    
+2. Lancement de l'algo
+```python main.py <path_file_src.csv>```
+
+3. Envoi des règles à l''API
+```python fmc_post_policy.py <rule_file.xlsx> <policy_name> <FMC_USERNAME> <FMC_PASSWORD>```
+
+**/!\ WARNING** : 
+- Utilisation d'un chemain relatif vers le fichier source (structure obligatoire voir logs_test_simple.csv)
+- l'URL de l'API doit être modifée ligne 10 du fichier fmc_post_policy.py
