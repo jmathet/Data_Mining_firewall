@@ -14,7 +14,7 @@ Projet en 3 étapes :
 
 ## Process Data Mining : 
 
-![alt text](step_by_steps_2.png)
+![alt text](step_by_step.png)
 
 <ins> Etapes clés pour l'algorithme FRG :
 1. Génération des clusters 
